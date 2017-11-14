@@ -1,0 +1,42 @@
+{
+	"$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+	"project": {
+		"name": "ngx-cesium"
+	},
+	"apps": [
+		{
+			"root": "example",
+			"outDir": "example_dist",
+			"assets": [
+				"assets",
+				"favicon.ico",
+				{
+					"glob": "**/*",
+					"input": "../node_modules/cesium/Build/Cesium",
+					"output": "./assets/scripts/cesium"
+				}
+			],
+			"index": "index.html",
+			"main": "main.ts",
+			"polyfills": "polyfills.ts",
+			"tsconfig": "tsconfig.json",
+			"styles": [
+				"./styles.scss",
+				"../node_modules/cesium/Build/Cesium/Widgets/widgets.css"
+			],
+			"scripts": [
+				"../node_modules/cesium/Build/Cesium/Cesium.js"
+			],
+			"environmentSource": "environments/environment.ts",
+			"environments": {
+				"dev": "environments/environment.ts",
+				"test": "environments/environment.test.ts",
+				"prod": "environments/environment.prod.ts"
+			}
+		}
+	],
+	"defaults": {
+		"styleExt": "scss",
+		"component": {}
+	}
+}
