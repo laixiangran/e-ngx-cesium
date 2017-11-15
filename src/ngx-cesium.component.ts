@@ -1,4 +1,4 @@
-/// <reference path="./cesium.d.ts" />
+/// <reference path="../src/cesium.d.ts" />
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
 import * as _ from 'lodash';

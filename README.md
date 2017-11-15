@@ -28,7 +28,13 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     ]
 	```
 
-3. Set `CESIUM_BASE_URL` in main.ts
+3. Add `cesium.d.ts` to `typings.d.ts`
+
+	```typescript
+    /// <reference path="../node_modules/ngx-cesium/src/cesium.d.ts" />
+	```
+
+4. Set `CESIUM_BASE_URL` in main.ts
 
 	```typescript
     window['CESIUM_BASE_URL'] = '/assets/scripts/cesium'; // 设置cesium请求资源的基本路径
@@ -36,7 +42,7 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     platformBrowserDynamic().bootstrapModule(AppModule);
 	```
 
-4. Add the `NgxCesiumModule`
+5. Add the `NgxCesiumModule`
 
 	```typescript
 	import { NgxCesiumModule } from "ngx-cesium";
@@ -47,13 +53,13 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 	})
 	```
 
-5. Use in Template
+6. Use in Template
 
 	```html
 	<ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></ngx-cesium>
 	```
 
-6. Use in Component
+7. Use in Component
 
 	```typescript
     viewerOptions: ViewerOptions;
