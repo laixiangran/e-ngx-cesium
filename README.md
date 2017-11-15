@@ -32,6 +32,8 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 	```typescript
     window['CESIUM_BASE_URL'] = '/assets/scripts/cesium'; // 设置cesium请求资源的基本路径
+    // window['CESIUM_BASE_URL']需在应用启动之前设置
+    platformBrowserDynamic().bootstrapModule(AppModule);
 	```
 
 4. Add the `NgxCesiumModule`
@@ -48,20 +50,42 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 5. Use in Template
 
 	```html
+	<ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></ngx-cesium>
 	```
 
 6. Use in Component
 
 	```typescript
+    viewerOptions: ViewerOptions;
+    viewer: Viewer;
+
+    constructor() {
+        this.viewerOptions = {
+            scene3DOnly: true,
+            selectionIndicator: false,
+            baseLayerPicker: false
+        };
+    }
+
+    onViewerReady($event: Viewer) {
+        this.viewer = $event;
+        console.log(this.viewer);
+    }
 	```
 
 ## API
 
 ### Inputs
 
+- `viewerOptions`（`any`） - 创建Cesium.Viewer的属性配置
+
 ### Outputs
 
+- `viewerReady` - 准备就绪后会触发该事件，参数$event为Cesium.Viewer
+
 ### Instance Method
+
+- 无
 
 ## Develop
 

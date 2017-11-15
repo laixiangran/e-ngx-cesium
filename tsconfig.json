@@ -7,20 +7,17 @@
 		"experimentalDecorators": true,
 		"noEmitHelpers": false,
 		"noImplicitAny": false,
-		"sourceMap": true,
+		"sourceMap": false,
 		"declaration": true,
 		"rootDir": "aot",
 		"outDir": "dist",
 		"lib": [
 			"es6",
 			"dom"
-		],
-		"typeRoots": [
-			"./node_modules/@types"
 		]
 	},
 	"files": [
-		"aot/index.ts"
+		"./aot/index.ts"
 	],
 	"exclude": [
 		"node_modules",

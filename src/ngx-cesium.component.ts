@@ -1,9 +1,9 @@
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy } from '@angular/core';
+/// <reference path="./cesium.d.ts" />
 
-declare var Cesium: CesiumObj;
-interface CesiumObj {
-	Viewer: any;
-}
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import * as _ from 'lodash';
+import ViewerOptions = Cesium.ViewerOptions;
+import Viewer = Cesium.Viewer;
 
 @Component({
 	selector: 'ngx-cesium',
@@ -12,8 +12,18 @@ interface CesiumObj {
 })
 export class NgxCesiumComponent implements OnInit, OnDestroy {
 	@ViewChild('ngxCesiumContainer') ngxCesiumContainerRef: ElementRef;
-	ngxCesiumContainer: HTMLDivElement;
-	viewer: any;
+
+	private ngxCesiumContainer: HTMLDivElement;
+	private viewer: Viewer;
+	private defaultViewerOptions: ViewerOptions = {
+		fullscreenElement: this.ngxCesiumContainer // 这里设置viewer所在元素为全屏的元素
+	};
+
+	@Input() viewerOptions: ViewerOptions;
+
+	// 视图创建完成之后触发该事件
+	@Output()
+	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
 
 	constructor() {
 	}
@@ -27,13 +37,12 @@ export class NgxCesiumComponent implements OnInit, OnDestroy {
 	 * 初始化视图
 	 */
 	initViewer() {
-		this.viewer = new Cesium.Viewer(this.ngxCesiumContainer, {
-			fullscreenElement: this.ngxCesiumContainer // 这里设置viewer所在元素为全屏的元素
-		});
+		const viewerOptions: ViewerOptions = _.merge({}, this.defaultViewerOptions, this.viewerOptions);
+		this.viewer = new Cesium.Viewer(this.ngxCesiumContainer, viewerOptions);
+		this.viewerReady.emit(this.viewer);
 	}
 
 	ngOnDestroy() {
-		this.ngxCesiumContainer = this.ngxCesiumContainerRef.nativeElement;
-		this.initViewer();
+		this.viewer.destroy();
 	}
 }

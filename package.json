@@ -32,7 +32,8 @@
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "dependencies": {
-    "cesium": "^1.39.0"
+    "cesium": "^1.39.0",
+    "lodash": "^4.17.4"
   },
   "devDependencies": {
     "@angular/core": "^4.0.0",
