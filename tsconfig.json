@@ -14,6 +14,9 @@
 		"lib": [
 			"es6",
 			"dom"
+		],
+		"typeRoots": [
+			"../node_modules/cesium-typings"
 		]
 	},
 	"files": [
