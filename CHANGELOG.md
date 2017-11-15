@@ -1,3 +1,7 @@
+# 1.0.2 (2017-11-15)
+
+- 修复引入cesium-typings引起的bug
+
 # 1.0.1 (2017-11-15)
 
 - 引入cesium-typings
