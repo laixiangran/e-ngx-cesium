@@ -4,4 +4,4 @@
  */
 
 export { NgxCesiumModule } from './ngx-cesium.module';
-export { NgxCesiumComponent } from './ngx-cesium.component'
+export { NgxCesiumComponent } from './ngx-cesium.component';
