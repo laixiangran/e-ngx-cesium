@@ -1,7 +1,7 @@
 /**
  * Created by laixiangran on 2017/11/14.
  * homepage：http://www.laixiangran.cn
- * Typescript definition for cesium 1.37
+ * Typescript definition for cesium 1.39
  */
 
 declare module Cesium {
@@ -3946,6 +3946,10 @@ declare module Cesium {
 		static tileXYToQuadKey(x: number, y: number, level: number): string;
 
 		static quadKeyToTileXY(quadkey: string): { x: number, y: number, level: number };
+	}
+
+	class BingMapsApi {
+		static defaultKey: string;
 	}
 
 	class Camera {
