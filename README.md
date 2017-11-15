@@ -28,7 +28,7 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     ]
 	```
 
-3. Add `cesium.d.ts` to `typings.d.ts`
+3. Add `cesium-typings` to `typings.d.ts`
 
 	```typescript
     /// <reference path="../node_modules/cesium-typings/index.d.ts" />
