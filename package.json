@@ -33,7 +33,6 @@
   "typings": "dist/index.d.ts",
   "dependencies": {
     "cesium": "^1.39.0",
-    "cesium-typings": "^1.0.0",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
