@@ -4,15 +4,13 @@
  */
 
 var gulp = require('gulp');
-var os = require('os');
-var path = require('path');
 var sass = require('gulp-sass');
 var rename = require("gulp-rename");
 var inlineNg2Template = require('gulp-inline-ng2-template');
 var runSequence = require('run-sequence').use(gulp);
 var del = require('del');
 var gulpif = require('gulp-if');
-var clean = require('gulp-clean');
+var replace = require('gulp-replace');
 
 var config = {
 	src: './src',
@@ -43,4 +41,10 @@ gulp.task('ng2:inline', ['copy:src'], function () {
 
 gulp.task('prepublish', function (cb) {
 	runSequence(['clean:dist', 'copy:src', 'ng2:inline'], cb);
+});
+
+gulp.task('replace', function () {
+    gulp.src([config.dest + '/index.d.ts'])
+        .pipe(replace('/// <reference path="../src/types/index.d.ts" />', ''))
+        .pipe(gulp.dest(config.dest));
 });
