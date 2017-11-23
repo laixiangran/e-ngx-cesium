@@ -5,5 +5,5 @@
 
 /// <reference path="../src/types/index.d.ts" />
 
-export { NgxCesiumModule } from './ngx-cesium.module';
-export { NgxCesiumComponent } from './ngx-cesium.component';
+export { ENgxCesiumModule } from './e-ngx-cesium.module';
+export { ENgxCesiumComponent } from './e-ngx-cesium.component';

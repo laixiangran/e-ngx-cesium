@@ -1,13 +1,13 @@
-# ngx-cesium
+# e-ngx-cesium
 
-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
+e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 ## Usage
 
 1. Install
 
 	```shell
-	npm install --save ngx-cesium@latest
+	npm install --save e-ngx-cesium@latest
 	```
 
 2. Set in the `.angular-cli.json（@angular/cli）`
@@ -42,13 +42,13 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     platformBrowserDynamic().bootstrapModule(AppModule);
 	```
 
-5. Add the `NgxCesiumModule`
+5. Add the `ENgxCesiumModule`
 
 	```typescript
-	import { NgxCesiumModule } from "ngx-cesium";
+	import { ENgxCesiumModule } from "e-ngx-cesium";
 	@NgModule({
 	    imports: [
-	        NgxCesiumModule
+	        ENgxCesiumModule
 	    ]
 	})
 	```
@@ -56,7 +56,7 @@ ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 6. Use in Template
 
 	```html
-	<ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></ngx-cesium>
+	<e-ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></e-ngx-cesium>
 	```
 
 7. Use in Component

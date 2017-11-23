@@ -4,11 +4,11 @@ import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 
 @Component({
-	selector: 'ngx-cesium',
-	templateUrl: './ngx-cesium.component.html',
-	styleUrls: ['./ngx-cesium.component.scss']
+	selector: 'e-ngx-cesium',
+	templateUrl: './e-ngx-cesium.component.html',
+	styleUrls: ['./e-ngx-cesium.component.scss']
 })
-export class NgxCesiumComponent implements OnInit, OnDestroy {
+export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@ViewChild('ngxCesiumContainer') ngxCesiumContainerRef: ElementRef;
 
 	private ngxCesiumContainer: HTMLDivElement;

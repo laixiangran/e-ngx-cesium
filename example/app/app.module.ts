@@ -1,12 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { NgxCesiumModule } from '../../src/ngx-cesium.module';
+import { ENgxCesiumModule } from '../../src/e-ngx-cesium.module';
 
 @NgModule({
 	imports: [
 		BrowserModule,
-		NgxCesiumModule
+		ENgxCesiumModule
 	],
 	declarations: [
 		AppComponent
