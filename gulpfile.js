@@ -44,7 +44,7 @@ gulp.task('prepublish', function (cb) {
 });
 
 gulp.task('replace', function () {
-    gulp.src([config.dest + '/index.d.ts'])
-        .pipe(replace('/// <reference path="../src/types/index.d.ts" />', ''))
+    gulp.src([config.dest + '/e-ngx-cesium.component.d.ts'])
+        .pipe(replace('/// <reference path="../node_modules/cesium-typings/index.d.ts" />', ''))
         .pipe(gulp.dest(config.dest));
 });

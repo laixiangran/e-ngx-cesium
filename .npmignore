@@ -6,6 +6,4 @@ tsconfig.json
 CHANGELOG.md
 .editorconfig
 .angular-cli.json
-temp/
 aot/
-src/types

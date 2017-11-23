@@ -1,6 +1,6 @@
 {
   "name": "e-ngx-cesium",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "e-ngx-cesium is a cesium component for Angular.",
   "keywords": [
     "angular",
@@ -24,7 +24,8 @@
     "url": "https://github.com/laixiangran/e-ngx-cesium/issues"
   },
   "scripts": {
-    "release": "gulp prepublish && ngc && gulp replace && npm publish",
+    "release": "gulp prepublish && npm run ngc && gulp replace && npm publish",
+    "ngc": "ngc",
     "start": "ng serve -o",
     "build-test": "ng build --prod --env=test --aot",
     "build-prod": "ng build --prod --env=prod --aot"
@@ -33,7 +34,7 @@
   "typings": "dist/index.d.ts",
   "dependencies": {
     "cesium": "^1.39.0",
-    "cesium-typings": "^1.39.2",
+    "cesium-typings": "^1.39.9",
     "lodash": "^4.17.4"
   },
   "devDependencies": {
