@@ -13,6 +13,7 @@ import ScreenSpaceEventHandler = Cesium.ScreenSpaceEventHandler;
 import Cartographic = Cesium.Cartographic;
 import ScreenSpaceEventType = Cesium.ScreenSpaceEventType;
 import Globe = Cesium.Globe;
+import MoveEvent = Cesium.MoveEvent;
 
 @Component({
 	selector: 'e-ngx-cesium',
@@ -138,10 +139,10 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		const handler: ScreenSpaceEventHandler = new ScreenSpaceEventHandler(this.scene.canvas);
 
 		// 设置鼠标移动事件的处理函数，这里负责监听x,y坐标值变化
-		handler.setInputAction( (movement: any) => {
+		handler.setInputAction( (movement: MoveEvent) => {
 
 			// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
-			cartesian = this.viewer.camera.pickEllipsoid(movement['endPosition'], this.ellipsoid);
+			cartesian = this.viewer.camera.pickEllipsoid(movement.endPosition, this.ellipsoid);
 			if (cartesian) {
 
 				// 将笛卡尔坐标转换为地理坐标
@@ -164,7 +165,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		}, ScreenSpaceEventType.MOUSE_MOVE);
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
-		handler.setInputAction( (wheelment: any) => {
+		handler.setInputAction( () => {
 			height = Math.ceil(this.viewer.camera.positionCartographic.height);
 			this.mousePosition = {
 				long: longitude,

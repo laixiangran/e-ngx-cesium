@@ -1,3 +1,20 @@
 <div class="app-main">
 	<e-ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></e-ngx-cesium>
+	<div style="position: absolute; top: 50px; left: 5px;background: #FFFFFF;padding: 5px;">
+		<div>
+			<input type="checkbox" name="skyAtmosphere" [(ngModel)]="skyAtmosphere" (click)="doSkyAtmosphere()">大气渲染
+		</div>
+		<div>
+			<input type="checkbox" name="enableLighting" [(ngModel)]="enableLighting" (click)="doEnableLighting()">光照渲染
+		</div>
+		<div>
+			<input type="checkbox">雾化效果
+		</div>
+		<div>
+			<input type="checkbox" name="showWaterEffect" [(ngModel)]="showWaterEffect" (click)="doShowWaterEffect()">波浪效果
+		</div>
+		<div>
+			<input type="checkbox" name="depthTestAgainstTerrain" [(ngModel)]="depthTestAgainstTerrain" (click)="doDepthTestAgainstTerrain()">深度监测
+		</div>
+	</div>
 </div>
