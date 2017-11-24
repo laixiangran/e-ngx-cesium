@@ -8,13 +8,13 @@ import Viewer = Cesium.Viewer;
 	styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-	viewerOptions: ViewerOptions = {};
+	viewerOptions: ViewerOptions;
 	viewer: Viewer;
 
 	constructor() {
 	}
 
-	onViewerReady($event: Viewer) {
-		this.viewer = $event;
+	onViewerReady(evt: any) {
+		this.viewer = evt.viewer;
 	}
 }

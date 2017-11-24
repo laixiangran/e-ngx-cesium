@@ -1,7 +1,59 @@
-.e-ngx-cesium-container {
-	width: 100%;
-	height: 100%;
-	margin: 0;
-	padding: 0;
-	overflow: hidden;
+.e-ngx-cesium-fullview {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.e-ngx-cesium {
+    position: relative;
+    font-size: 14px;
+    color: #FFFFFF;
+
+    .e-ngx-cesium-globe {
+
+    }
+
+    .e-ngx-cesium-position {
+        position: absolute;
+        left: 5px;
+        bottom: 5px;
+    }
+
+    .e-ngx-cesium-toolbar {
+        position: absolute;
+        left: 5px;
+        top: 5px;
+
+        & > div {
+            position: relative;
+        }
+
+        .e-ngx-cesium-button {
+            box-sizing: border-box;
+            background: #303336;
+            border: 1px solid #444444;
+            font-size: 25px;
+            color: #FFFFFF;
+            width: 32px;
+            height: 32px;
+            border-radius: 14%;
+            padding: 0;
+            vertical-align: middle;
+            cursor: pointer;
+            overflow: hidden;
+
+            &:hover {
+                background: #4488BB;
+                border-color: #AAEEFF;
+                box-shadow: 0 0 8px #FFFFFF;
+            }
+
+            &:focus {
+                border-color: #EEAA44;
+                outline: none;
+            }
+        }
+    }
 }

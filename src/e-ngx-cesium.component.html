@@ -1,1 +1,15 @@
-<div class="e-ngx-cesium-container" #eNgxCesiumContainer></div>
+<div class="e-ngx-cesium-fullview e-ngx-cesium">
+	<div class="e-ngx-cesium-fullview e-ngx-cesium-globe" #globeContainer></div>
+	<div *ngIf="mousePosition" class="e-ngx-cesium-position">
+		经度：{{mousePosition.long}}&nbsp;
+		纬度：{{mousePosition.lat}}&nbsp;
+		高度：{{mousePosition.height}}
+	</div>
+	<div class="e-ngx-cesium-toolbar">
+		<div class="e-ngx-cesium-toolbar-home">
+			<button class="e-ngx-cesium-button" (click)="homeCamera()">
+				<span class="fa fa-home"></span>
+			</button>
+		</div>
+	</div>
+</div>

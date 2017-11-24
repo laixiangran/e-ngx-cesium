@@ -22,6 +22,7 @@
 			"tsconfig": "tsconfig.json",
 			"styles": [
 				"./styles.scss",
+				"../node_modules/font-awesome/css/font-awesome.min.css",
 				"../node_modules/cesium/Build/Cesium/Widgets/widgets.css"
 			],
 			"scripts": [

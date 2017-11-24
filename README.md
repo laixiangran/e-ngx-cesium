@@ -75,9 +75,8 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
         };
     }
 
-    onViewerReady($event: Viewer) {
-        this.viewer = $event;
-        console.log(this.viewer);
+    onViewerReady(evt: any) {
+        this.viewer = evt.viewer;
     }
 	```
 
@@ -89,7 +88,7 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 ### Outputs
 
-- `viewerReady` - 准备就绪后会触发该事件，参数$event为Cesium.Viewer
+- `viewerReady` - Cesium.Viewer创建完成后会触发该事件，参数$event为`{viewer: Cesium.Viewer, scene: Cesium.Scene, globe: Cesium.Globe, ellipsoid: Cesium.Ellipsoid}`
 
 ### Instance Method
 
