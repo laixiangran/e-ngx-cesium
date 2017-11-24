@@ -141,7 +141,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		handler.setInputAction( (movement: any) => {
 
 			// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
-			cartesian = viewer.camera.pickEllipsoid(movement['endPosition'], this.ellipsoid);
+			cartesian = this.viewer.camera.pickEllipsoid(movement['endPosition'], this.ellipsoid);
 			if (cartesian) {
 
 				// 将笛卡尔坐标转换为地理坐标
@@ -152,7 +152,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				latitude = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
 
 				// 获取相机高度
-				height = Math.ceil(viewer.camera.positionCartographic.height);
+				height = Math.ceil(this.viewer.camera.positionCartographic.height);
 				this.mousePosition = {
 					long: longitude,
 					lat: latitude,
@@ -165,7 +165,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
 		handler.setInputAction( (wheelment: any) => {
-			height = Math.ceil(viewer.camera.positionCartographic.height);
+			height = Math.ceil(this.viewer.camera.positionCartographic.height);
 			this.mousePosition = {
 				long: longitude,
 				lat: latitude,
