@@ -4,6 +4,8 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 影像和标注默认使用天地图服务，地形默认使用STK World Terrain
 
+![示例图](./example/assets/images/示例图.png)
+
 ## Usage
 
 1. Install
