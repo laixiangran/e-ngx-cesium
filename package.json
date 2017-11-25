@@ -34,7 +34,7 @@
   "typings": "dist/index.d.ts",
   "dependencies": {
     "cesium": "^1.39.0",
-    "cesium-typings": "^1.39.9",
+    "cesium-typings": "^1.39.11",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4"
   },
