@@ -14,9 +14,11 @@ export class AppComponent {
 	viewer: Viewer;
 	scene: Scene;
 	globe: Globe;
+	showSkyAtmosphere: boolean = true;
 	enableLighting: boolean = false;
 	depthTestAgainstTerrain: boolean = false;
 	showWaterEffect: boolean = true;
+	enableFog: boolean = true;
 
 	constructor() {
 	}
@@ -27,10 +29,10 @@ export class AppComponent {
 		this.globe = evt.globe;
 	}
 
-	doSkyAtmosphere() {
+	doShowSkyAtmosphere() {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			// this.scene.skyAtmosphere = this.enableLighting;
+			this.scene.skyAtmosphere.show = this.showSkyAtmosphere;
 		});
 	}
 
@@ -41,10 +43,10 @@ export class AppComponent {
 		});
 	}
 
-	doDepthTestAgainstTerrain() {
+	doEnableFog() {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
+			this.scene.fog.enabled = this.enableFog;
 		});
 	}
 
@@ -52,6 +54,13 @@ export class AppComponent {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
 			this.globe.showWaterEffect = this.showWaterEffect;
+		});
+	}
+
+	doDepthTestAgainstTerrain() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
 		});
 	}
 }
