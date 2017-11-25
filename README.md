@@ -86,7 +86,29 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 ### Inputs
 
-- `viewerOptions`（`any`） - 创建Cesium.Viewer的属性配置
+- `viewerOptions`（`any`） - 创建Cesium.Viewer的属性配置，默认配置：
+
+	```typescript
+	private defaultViewerOptions: ViewerOptions = {
+        timeline: false,
+        animation: false,
+        baseLayerPicker: false,
+        homeButton: false,
+        fullscreenElement: this.globeContainer, // 这里设置viewer所在元素为全屏的元素
+        imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
+            url: 'http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles',
+            layer: 'tdtVecBasicLayer',
+            style: 'default',
+            format: 'image/jpeg',
+            tileMatrixSetID: 'TDTMapsCompatible'
+        }),
+        terrainProvider: new Cesium.CesiumTerrainProvider({
+            url: 'https://assets.agi.com/stk-terrain/world',
+            requestWaterMask: true,
+            requestVertexNormals: true
+        })
+    };
+	```
 
 ### Outputs
 
