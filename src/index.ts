@@ -4,4 +4,4 @@
  */
 
 export { ENgxCesiumModule } from './e-ngx-cesium.module';
-export { ENgxCesiumComponent } from './e-ngx-cesium.component';
+export { ENgxCesiumComponent, CurrentPosition } from './e-ngx-cesium.component';

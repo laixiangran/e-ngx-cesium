@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
-import Cartesian3 = Cesium.Cartesian3;
 import ImageryProvider = Cesium.ImageryProvider;
 import Scene = Cesium.Scene;
 import Ellipsoid = Cesium.Ellipsoid;
@@ -19,7 +18,7 @@ import Camera = Cesium.Camera;
 import Rectangle = Cesium.Rectangle;
 import defined = Cesium.defined;
 
-interface CurrentPosition {
+export interface CurrentPosition {
 	long: number; // 经度
 	lat: number; // 纬度
 	height: number; // 相机高度
@@ -61,7 +60,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	mousePosition: CurrentPosition; // 鼠标位置
 
 	// 默认中国
-	private defaultRectangle: Rectangle;
+	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55);
 
 	@Input()
 	viewerOptions: ViewerOptions;
@@ -70,8 +69,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
 
 	constructor() {
-		this.defaultRectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55);
-		Camera.DEFAULT_VIEW_RECTANGLE = this.defaultRectangle;
 	}
 
 	ngOnInit() {
@@ -93,6 +90,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				tileMatrixSetID: 'TDTMapsCompatible'
 			});
 		}
+		Camera.DEFAULT_VIEW_RECTANGLE = this.defaultRectangle;
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
 		this.viewer = new Viewer(this.globeContainer, viewerOptions);
 
@@ -138,7 +136,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		handler.setInputAction((move: MoveEvent) => {
 			if (move.endPosition) {
 				moveEndPosition = move.endPosition;
-				this.mousePosition = this.getMousePointPosition(moveEndPosition);
+				this.mousePosition = this.getMousePointPosition(moveEndPosition) || this.mousePosition;
 			}
 		}, ScreenSpaceEventType.MOUSE_MOVE);
 
@@ -163,11 +161,11 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			const longitude: number = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
 			const latitude: number = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
 
-			// 获取相机高度
-			const height: number = Math.ceil(this.viewer.camera.positionCartographic.height);
-
 			// 获取海拔高度
 			const elevation: number = Math.ceil(this.globe.getHeight(cartographic));
+
+			// 获取相机高度
+			const height: number = Math.ceil(this.viewer.camera.positionCartographic.height) - elevation;
 
 			return {
 				long: longitude,

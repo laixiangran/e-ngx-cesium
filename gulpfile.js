@@ -43,7 +43,12 @@ gulp.task('prepublish', function (cb) {
 	runSequence(['clean:dist', 'copy:src', 'ng2:inline'], cb);
 });
 
-gulp.task('replace', function () {
+gulp.task('copy:components', function () {
+	return gulp.src([config.aot + '/components/**/*.*'])
+		.pipe(gulp.dest(config.dest));
+});
+
+gulp.task('replace', ['copy:components'], function () {
     gulp.src([config.dest + '/e-ngx-cesium.component.d.ts'])
         .pipe(replace('/// <reference path="../node_modules/cesium-typings/index.d.ts" />', ''))
         .pipe(gulp.dest(config.dest));

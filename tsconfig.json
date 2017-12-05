@@ -23,7 +23,7 @@
 		"node_modules",
 		"src",
 		"example",
-		"aot/navigation"
+		"aot/components"
 	],
 	"angularCompilerOptions": {
 		"genDir": "./aot/factories"
