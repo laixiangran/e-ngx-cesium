@@ -3,8 +3,8 @@
 	<div *ngIf="mousePosition" class="e-ngx-cesium-position">
 		{{'经度：' + mousePosition.long + '°'}}&nbsp;
 		{{'纬度：' + mousePosition.lat + '°'}}&nbsp;
-		{{'相机高度：' + mousePosition.cameraHeight + ' m'}}&nbsp;
-		{{'海拔高度：' + mousePosition.demHeight + ' m'}}
+		{{'海拔：' + mousePosition.elevation + ' m'}}&nbsp;
+		{{'相机高度：' + mousePosition.height + ' m'}}&nbsp;
 	</div>
 	<div class="e-ngx-cesium-toolbar">
 		<div class="e-ngx-cesium-toolbar-home">

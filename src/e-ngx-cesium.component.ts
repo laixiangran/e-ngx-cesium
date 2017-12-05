@@ -14,6 +14,14 @@ import Cartographic = Cesium.Cartographic;
 import ScreenSpaceEventType = Cesium.ScreenSpaceEventType;
 import Globe = Cesium.Globe;
 import MoveEvent = Cesium.MoveEvent;
+import Cartesian2 = Cesium.Cartesian2;
+
+interface CurrentPosition {
+	long: number; // 经度
+	lat: number; // 纬度
+	height: number; // 相机高度
+	elevation: number; // 海拔
+}
 
 @Component({
 	selector: 'e-ngx-cesium',
@@ -47,7 +55,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			requestVertexNormals: true
 		})
 	};
-	mousePosition: any; // 鼠标位置
+	mousePosition: CurrentPosition; // 鼠标位置
 
 	// 默认中国
 	private initCamera: any = {
@@ -101,7 +109,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		// 初始化相机位置（中国）
 		this.homeCamera();
 
-		this.getPosition();
+		this.setGetPositionAction();
 
 		// 分发初始化完成事件
 		this.viewerReady.emit({
@@ -127,56 +135,56 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * 获取鼠标的经度、纬度、相机高度、海拔高度
+	 * 设置鼠标移动或者滚动事件动态获取鼠标点位置信息
 	 */
-	getPosition() {
-		let longitude: number;
-		let latitude: number;
-		let cameraHeight: number;
-		let demHeight: number;
-		let cartesian: Cartesian3;
-
+	setGetPositionAction() {
 		// 定义当前场景的画布元素的事件处理
 		const handler: ScreenSpaceEventHandler = new ScreenSpaceEventHandler(this.scene.canvas);
+		let moveEndPosition: Cartesian2;
 
 		// 设置鼠标移动事件的处理函数，这里负责监听x,y坐标值变化
-		handler.setInputAction((move: any) => {
+		handler.setInputAction((move: MoveEvent) => {
 			if (move.endPosition) {
-
-				// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
-				cartesian = this.viewer.camera.pickEllipsoid(move.endPosition, this.ellipsoid);
-				if (cartesian) {
-
-					// 将笛卡尔坐标转换为地理坐标
-					const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
-
-					// 将弧度转为度的十进制度表示
-					longitude = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
-					latitude = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
-
-					// 获取相机高度
-					cameraHeight = Math.ceil(this.viewer.camera.positionCartographic.height);
-
-					// 获取海拔高度
-					demHeight = Math.ceil(this.globe.getHeight(cartographic));
-
-					this.mousePosition = {
-						long: longitude,
-						lat: latitude,
-						cameraHeight: cameraHeight,
-						demHeight: demHeight
-					};
-				} else {
-					this.mousePosition = null;
-				}
+				moveEndPosition = move.endPosition;
+				this.mousePosition = this.getMousePointPosition(moveEndPosition);
 			}
 		}, ScreenSpaceEventType.MOUSE_MOVE);
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
 		handler.setInputAction(() => {
-			cameraHeight = Math.ceil(this.viewer.camera.positionCartographic.height);
-			this.mousePosition.cameraHeight = cameraHeight;
+			this.mousePosition.elevation = Math.ceil(this.viewer.camera.positionCartographic.height);
 		}, ScreenSpaceEventType.WHEEL);
+	}
+
+	/**
+	 * 获取二维笛卡尔点的经度、纬度、相机高度、海拔高度
+	 * @param {Cesium.Cartesian2} point
+	 */
+	getMousePointPosition(point: Cartesian2): CurrentPosition {
+		// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
+		const cartesian = this.viewer.camera.pickEllipsoid(point, this.ellipsoid);
+		if (!cartesian) {
+			return null;
+		}
+		// 将笛卡尔坐标转换为地理坐标
+		const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
+
+		// 将弧度转为度的十进制度表示
+		const longitude: number = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
+		const latitude: number = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
+
+		// 获取相机高度
+		const height: number = Math.ceil(this.viewer.camera.positionCartographic.height);
+
+		// 获取海拔高度
+		const elevation: number = Math.ceil(this.globe.getHeight(cartographic));
+
+		return {
+			long: longitude,
+			lat: latitude,
+			height: height,
+			elevation: elevation
+		};
 	}
 
 	ngOnDestroy() {
