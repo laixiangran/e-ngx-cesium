@@ -14,6 +14,11 @@
 					"glob": "**/*",
 					"input": "../node_modules/cesium/Build/Cesium",
 					"output": "./assets/scripts/cesium"
+				},
+				{
+					"glob": "**/*",
+					"input": "../src/components",
+					"output": "./assets/scripts/components"
 				}
 			],
 			"index": "index.html",
@@ -26,7 +31,8 @@
 				"../node_modules/cesium/Build/Cesium/Widgets/widgets.css"
 			],
 			"scripts": [
-				"../node_modules/cesium/Build/Cesium/Cesium.js"
+				"../node_modules/cesium/Build/Cesium/Cesium.js",
+				"../src/components/viewerCesiumNavigationMixin.js"
 			],
 			"environmentSource": "environments/environment.ts",
 			"environments": {

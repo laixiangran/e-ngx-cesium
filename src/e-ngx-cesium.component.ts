@@ -15,6 +15,9 @@ import ScreenSpaceEventType = Cesium.ScreenSpaceEventType;
 import Globe = Cesium.Globe;
 import MoveEvent = Cesium.MoveEvent;
 import Cartesian2 = Cesium.Cartesian2;
+import Camera = Cesium.Camera;
+import Rectangle = Cesium.Rectangle;
+import defined = Cesium.defined;
 
 interface CurrentPosition {
 	long: number; // 经度
@@ -58,14 +61,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	mousePosition: CurrentPosition; // 鼠标位置
 
 	// 默认中国
-	private initCamera: any = {
-		x: 111,
-		y: 30,
-		z: 18852846,
-		roll: 1,
-		pitch: -90,
-		heading: 353
-	};
+	private defaultRectangle: Rectangle;
 
 	@Input()
 	viewerOptions: ViewerOptions;
@@ -74,6 +70,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
 
 	constructor() {
+		this.defaultRectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55);
+		Camera.DEFAULT_VIEW_RECTANGLE = this.defaultRectangle;
 	}
 
 	ngOnInit() {
@@ -87,7 +85,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	initViewer() {
 		let addImageryLayer: ImageryProvider;
 		if (!(this.viewerOptions && this.viewerOptions.imageryProvider)) {
-			// 添加天地图影像标注
 			addImageryLayer = new Cesium.WebMapTileServiceImageryProvider({
 				url: 'http://t0.tianditu.com/cia_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg',
 				layer: 'tdtVecBasicLayer',
@@ -98,6 +95,11 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		}
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
 		this.viewer = new Viewer(this.globeContainer, viewerOptions);
+
+		// 导航扩展
+		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {});
+
+		// 添加天地图影像标注
 		if (addImageryLayer) {
 			this.viewer.imageryLayers.addImageryProvider(addImageryLayer);
 		}
@@ -105,9 +107,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		this.globe = this.scene.globe;
 		this.ellipsoid = this.globe.ellipsoid;
 		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
-
-		// 初始化相机位置（中国）
-		this.homeCamera();
 
 		this.setGetPositionAction();
 
@@ -124,14 +123,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	 * 默认相机位置
 	 */
 	homeCamera() {
-		this.viewer.camera.flyTo({
-			destination: Cartesian3.fromDegrees(this.initCamera.x, this.initCamera.y, this.initCamera.z),
-			orientation: {
-				heading: CesiumMath.toRadians(this.initCamera.heading),
-				pitch: CesiumMath.toRadians(this.initCamera.pitch || -CesiumMath.PI_OVER_FOUR),
-				roll: CesiumMath.toRadians(this.initCamera.roll)
-			}
-		});
+		this.viewer.camera.flyHome(1);
 	}
 
 	/**
@@ -152,7 +144,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
 		handler.setInputAction(() => {
-			this.mousePosition.elevation = Math.ceil(this.viewer.camera.positionCartographic.height);
+			this.mousePosition.height = Math.ceil(this.viewer.camera.positionCartographic.height);
 		}, ScreenSpaceEventType.WHEEL);
 	}
 
@@ -163,31 +155,33 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	getMousePointPosition(point: Cartesian2): CurrentPosition {
 		// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
 		const cartesian = this.viewer.camera.pickEllipsoid(point, this.ellipsoid);
-		if (!cartesian) {
+		if (defined(cartesian)) {
+			// 将笛卡尔坐标转换为地理坐标
+			const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
+
+			// 将弧度转为度的十进制度表示
+			const longitude: number = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
+			const latitude: number = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
+
+			// 获取相机高度
+			const height: number = Math.ceil(this.viewer.camera.positionCartographic.height);
+
+			// 获取海拔高度
+			const elevation: number = Math.ceil(this.globe.getHeight(cartographic));
+
+			return {
+				long: longitude,
+				lat: latitude,
+				height: height,
+				elevation: elevation
+			};
+		} else {
 			return null;
 		}
-		// 将笛卡尔坐标转换为地理坐标
-		const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
-
-		// 将弧度转为度的十进制度表示
-		const longitude: number = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
-		const latitude: number = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
-
-		// 获取相机高度
-		const height: number = Math.ceil(this.viewer.camera.positionCartographic.height);
-
-		// 获取海拔高度
-		const elevation: number = Math.ceil(this.globe.getHeight(cartographic));
-
-		return {
-			long: longitude,
-			lat: latitude,
-			height: height,
-			elevation: elevation
-		};
 	}
 
 	ngOnDestroy() {
+		this.viewer['cesiumNavigation'].destroy();
 		this.viewer.destroy();
 	}
 }

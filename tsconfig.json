@@ -22,7 +22,8 @@
 	"exclude": [
 		"node_modules",
 		"src",
-		"example"
+		"example",
+		"aot/navigation"
 	],
 	"angularCompilerOptions": {
 		"genDir": "./aot/factories"
