@@ -127,51 +127,55 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * 获取鼠标的经度、纬度、高度
+	 * 获取鼠标的经度、纬度、相机高度、海拔高度
 	 */
 	getPosition() {
 		let longitude: number;
 		let latitude: number;
-		let height: number;
+		let cameraHeight: number;
+		let demHeight: number;
 		let cartesian: Cartesian3;
 
 		// 定义当前场景的画布元素的事件处理
 		const handler: ScreenSpaceEventHandler = new ScreenSpaceEventHandler(this.scene.canvas);
 
 		// 设置鼠标移动事件的处理函数，这里负责监听x,y坐标值变化
-		handler.setInputAction( (movement: MoveEvent) => {
+		handler.setInputAction((move: any) => {
+			if (move.endPosition) {
 
-			// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
-			cartesian = this.viewer.camera.pickEllipsoid(movement.endPosition, this.ellipsoid);
-			if (cartesian) {
+				// 通过指定的椭球或者地图对应的坐标系，将鼠标的二维坐标转换为对应椭球体三维坐标
+				cartesian = this.viewer.camera.pickEllipsoid(move.endPosition, this.ellipsoid);
+				if (cartesian) {
 
-				// 将笛卡尔坐标转换为地理坐标
-				const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
+					// 将笛卡尔坐标转换为地理坐标
+					const cartographic: Cartographic = this.ellipsoid.cartesianToCartographic(cartesian);
 
-				// 将弧度转为度的十进制度表示
-				longitude = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
-				latitude = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
+					// 将弧度转为度的十进制度表示
+					longitude = +CesiumMath.toDegrees(cartographic.longitude).toFixed(6);
+					latitude = +CesiumMath.toDegrees(cartographic.latitude).toFixed(6);
 
-				// 获取相机高度
-				height = Math.ceil(this.viewer.camera.positionCartographic.height);
-				this.mousePosition = {
-					long: longitude,
-					lat: latitude,
-					height: height
-				};
-			} else {
-				this.mousePosition = null;
+					// 获取相机高度
+					cameraHeight = Math.ceil(this.viewer.camera.positionCartographic.height);
+
+					// 获取海拔高度
+					demHeight = Math.ceil(this.globe.getHeight(cartographic));
+
+					this.mousePosition = {
+						long: longitude,
+						lat: latitude,
+						cameraHeight: cameraHeight,
+						demHeight: demHeight
+					};
+				} else {
+					this.mousePosition = null;
+				}
 			}
 		}, ScreenSpaceEventType.MOUSE_MOVE);
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
-		handler.setInputAction( () => {
-			height = Math.ceil(this.viewer.camera.positionCartographic.height);
-			this.mousePosition = {
-				long: longitude,
-				lat: latitude,
-				height: height
-			};
+		handler.setInputAction(() => {
+			cameraHeight = Math.ceil(this.viewer.camera.positionCartographic.height);
+			this.mousePosition.cameraHeight = cameraHeight;
 		}, ScreenSpaceEventType.WHEEL);
 	}
 
