@@ -17,6 +17,7 @@ import Cartesian2 = Cesium.Cartesian2;
 import Camera = Cesium.Camera;
 import Rectangle = Cesium.Rectangle;
 import defined = Cesium.defined;
+import DefaultProxy = Cesium.DefaultProxy;
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -33,11 +34,20 @@ export interface CurrentPosition {
 export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@ViewChild('globeContainer') globeContainerRef: ElementRef;
 
+	@Input()
+	viewerOptions: ViewerOptions;
+	@Input()
+	proxy: string;
+
+	@Output()
+	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
+
 	private globeContainer: HTMLDivElement;
 	private viewer: Viewer; // 视图
 	private scene: Scene; // 三维场景
 	private globe: Globe; // 三维球体
 	private ellipsoid: Ellipsoid; // 三维场景的椭球体
+	private defaultProxy: DefaultProxy = null;
 	private defaultViewerOptions: ViewerOptions = {
 		timeline: false,
 		animation: false,
@@ -62,17 +72,12 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	// 默认中国
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55);
 
-	@Input()
-	viewerOptions: ViewerOptions;
-
-	@Output()
-	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
-
 	constructor() {
 	}
 
 	ngOnInit() {
 		this.globeContainer = this.globeContainerRef.nativeElement;
+		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		this.initViewer();
 	}
 
@@ -87,6 +92,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				layer: 'tdtVecBasicLayer',
 				style: 'default',
 				format: 'image/jpeg',
+				proxy: this.defaultProxy,
 				tileMatrixSetID: 'TDTMapsCompatible'
 			});
 		}

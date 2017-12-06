@@ -26,7 +26,7 @@
   "scripts": {
     "release": "gulp prepublish && npm run ngc && gulp replace && npm publish",
     "ngc": "ngc",
-    "start": "ng serve -o",
+    "start": "ng serve -o --proxy-config proxy.config.json",
     "build-test": "ng build --prod --env=test --aot",
     "build-prod": "ng build --prod --env=prod --aot"
   },

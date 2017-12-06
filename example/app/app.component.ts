@@ -19,6 +19,7 @@ export class AppComponent {
 	depthTestAgainstTerrain: boolean = false;
 	showWaterEffect: boolean = true;
 	enableFog: boolean = true;
+	proxy: string = '/projectStart/proxy.jsp';
 
 	constructor() {
 	}

@@ -14,11 +14,6 @@
 					"glob": "**/*",
 					"input": "../node_modules/cesium/Build/Cesium",
 					"output": "./assets/scripts/cesium"
-				},
-				{
-					"glob": "**/*",
-					"input": "../src/components",
-					"output": "./assets/scripts/components"
 				}
 			],
 			"index": "index.html",

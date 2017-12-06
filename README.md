@@ -22,11 +22,6 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
             "glob": "**/*",
             "input": "../node_modules/cesium/Build/Cesium",
             "output": "./assets/scripts/cesium"
-        },
-        {
-            "glob": "**/*",
-            "input": "../node_modules/e-ngx-cesium/dist/viewerCesiumNavigationMixin.js",
-            "output": "./assets/scripts/cesium/viewerCesiumNavigationMixin.js"
         }
     ],
     "styles": [
@@ -115,6 +110,8 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
         })
     };
 	```
+
+- `proxy`（`string`） - 设置代理路径
 
 ### Outputs
 
