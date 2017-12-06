@@ -32,7 +32,7 @@
 			],
 			"scripts": [
 				"../node_modules/cesium/Build/Cesium/Cesium.js",
-				"../src/components/viewerCesiumNavigationMixin.js"
+				"../src/components/navigation/viewerCesiumNavigationMixin.js"
 			],
 			"environmentSource": "environments/environment.ts",
 			"environments": {
