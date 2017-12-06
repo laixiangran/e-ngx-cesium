@@ -25,7 +25,7 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
         },
         {
             "glob": "**/*",
-            "input": "../node_modules/e-ngx-cesium/viewerCesiumNavigationMixin.js",
+            "input": "../node_modules/e-ngx-cesium/dist/viewerCesiumNavigationMixin.js",
             "output": "./assets/scripts/cesium/viewerCesiumNavigationMixin.js"
         }
     ],
@@ -34,7 +34,7 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     ],
     "scripts": [
         "../node_modules/cesium/Build/Cesium/Cesium.js",
-        "../node_modules/e-ngx-cesium/viewerCesiumNavigationMixin.js"
+        "../node_modules/e-ngx-cesium/dist/viewerCesiumNavigationMixin.js"
     ]
 	```
 
