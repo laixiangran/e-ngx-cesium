@@ -54,7 +54,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		timeline: false,
 		animation: false,
 		baseLayerPicker: false,
-		homeButton: false,
 		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
 	};
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
@@ -121,13 +120,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			globe: this.globe,
 			ellipsoid: this.ellipsoid
 		});
-	}
-
-	/**
-	 * 默认相机位置
-	 */
-	homeCamera() {
-		this.viewer.camera.flyHome(1);
 	}
 
 	/**

@@ -1401,7 +1401,7 @@ define('ViewModels/ResetViewNavigationControl',[
          * This property is observable.
          * @type {String}
          */
-        this.name = '初始视图';
+        this.name = '重置视图';
 
         /**
          * Gets or sets the svg icon of the control.  This property is observable.
@@ -1873,13 +1873,10 @@ define('ViewModels/NavigationViewModel',[
     NavigationViewModel.prototype.show = function(container) {
         var testing;
         if (this.enableZoomControls && this.enableCompass) {
-            testing = '<div class="compass" title="Drag outer ring: rotate view. ' +
-                'Drag inner gyroscope: free orbit.' +
-                'Double-click: reset view.' +
-                'TIP: You can also free orbit by holding the CTRL key and dragging the map." data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
-                ' <div class="compass-outer-ring" title="Click and drag to rotate the camera" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
+                ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-gyro-background"></div>' +
                 ' <div class="compass-gyro" data-bind="cesiumSvgPath: { path: svgCompassGyro, width: 145, height: 145 }, css: { \'compass-gyro-active\': isOrbiting }"></div>' +
                 '</div>' +
@@ -1896,13 +1893,10 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (!this.enableZoomControls && this.enableCompass) {
-            testing = '<div class="compass" title="Drag outer ring: rotate view. ' +
-                'Drag inner gyroscope: free orbit.' +
-                'Double-click: reset view.' +
-                'TIP: You can also free orbit by holding the CTRL key and dragging the map." data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
-                ' <div class="compass-outer-ring" title="Click and drag to rotate the camera" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
+                ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-gyro-background"></div>' +
                 ' <div class="compass-gyro" data-bind="cesiumSvgPath: { path: svgCompassGyro, width: 145, height: 145 }, css: { \'compass-gyro-active\': isOrbiting }"></div>' +
                 '</div>' +
@@ -1919,13 +1913,10 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (this.enableZoomControls && !this.enableCompass) {
-            testing = '<div class="compass"  style="display: none;" title="Drag outer ring: rotate view. ' +
-                'Drag inner gyroscope: free orbit.' +
-                'Double-click: reset view.' +
-                'TIP: You can also free orbit by holding the CTRL key and dragging the map." data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
-                ' <div class="compass-outer-ring" title="Click and drag to rotate the camera" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
+                ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-gyro-background"></div>' +
                 ' <div class="compass-gyro" data-bind="cesiumSvgPath: { path: svgCompassGyro, width: 145, height: 145 }, css: { \'compass-gyro-active\': isOrbiting }"></div>' +
                 '</div>' +
@@ -1942,13 +1933,10 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (!this.enableZoomControls && !this.enableCompass) {
-            testing = '<div class="compass"  style="display: none;" title="Drag outer ring: rotate view. ' +
-                'Drag inner gyroscope: free orbit.' +
-                'Double-click: reset view.' +
-                'TIP: You can also free orbit by holding the CTRL key and dragging the map." data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
-                ' <div class="compass-outer-ring" title="Click and drag to rotate the camera" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
+                ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-gyro-background"></div>' +
                 ' <div class="compass-gyro" data-bind="cesiumSvgPath: { path: svgCompassGyro, width: 145, height: 145 }, css: { \'compass-gyro-active\': isOrbiting }"></div>' +
                 '</div>' +
