@@ -111,7 +111,7 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
     };
 	```
 
-- `proxy`（`string`） - 设置代理路径
+- `proxy`（`string`） - 设置代理路径，可使用esri提供的[几个平台的代理文件](https://github.com/Esri/resource-proxy)
 
 - `rectangle`（`Cesium.Rectangle`） - 初始范围
 
