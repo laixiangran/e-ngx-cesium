@@ -113,6 +113,8 @@ e-ngx-cesium is a [cesium](https://cesiumjs.org/) component for Angular.
 
 - `proxy`（`string`） - 设置代理路径
 
+- `rectangle`（`Cesium.Rectangle`） - 初始范围
+
 ### Outputs
 
 - `viewerReady` - Cesium.Viewer创建完成后会触发该事件，参数$event为`{viewer: Cesium.Viewer, scene: Cesium.Scene, globe: Cesium.Globe, ellipsoid: Cesium.Ellipsoid}`

@@ -38,6 +38,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	viewerOptions: ViewerOptions;
 	@Input()
 	proxy: string;
+	@Input()
+	rectangle: Rectangle;
 
 	@Output()
 	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
@@ -53,24 +55,10 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		animation: false,
 		baseLayerPicker: false,
 		homeButton: false,
-		fullscreenElement: this.globeContainer, // 这里设置viewer所在元素为全屏的元素
-		imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-			url: 'http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles',
-			layer: 'tdtVecBasicLayer',
-			style: 'default',
-			format: 'image/jpeg',
-			tileMatrixSetID: 'TDTMapsCompatible'
-		}),
-		terrainProvider: new Cesium.CesiumTerrainProvider({
-			url: 'https://assets.agi.com/stk-terrain/world',
-			requestWaterMask: true,
-			requestVertexNormals: true
-		})
+		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
 	};
+	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
 	mousePosition: CurrentPosition; // 鼠标位置
-
-	// 默认中国
-	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55);
 
 	constructor() {
 	}
@@ -78,6 +66,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	ngOnInit() {
 		this.globeContainer = this.globeContainerRef.nativeElement;
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
+		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
 		this.initViewer();
 	}
 
@@ -96,9 +85,25 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				tileMatrixSetID: 'TDTMapsCompatible'
 			});
 		}
-		Camera.DEFAULT_VIEW_RECTANGLE = this.defaultRectangle;
+		this.defaultViewerOptions.imageryProvider = new Cesium.WebMapTileServiceImageryProvider({
+			url: 'http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles',
+			layer: 'tdtVecBasicLayer',
+			style: 'default',
+			format: 'image/jpeg',
+			proxy: this.defaultProxy,
+			tileMatrixSetID: 'TDTMapsCompatible'
+		});
+		this.defaultViewerOptions.terrainProvider = new Cesium.CesiumTerrainProvider({
+			url: 'https://assets.agi.com/stk-terrain/world',
+			requestWaterMask: true,
+			requestVertexNormals: true
+		});
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
 		this.viewer = new Viewer(this.globeContainer, viewerOptions);
+		this.scene = this.viewer.scene;
+		this.globe = this.scene.globe;
+		this.ellipsoid = this.globe.ellipsoid;
+		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
 
 		// 导航扩展
 		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {});
@@ -107,11 +112,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		if (addImageryLayer) {
 			this.viewer.imageryLayers.addImageryProvider(addImageryLayer);
 		}
-		this.scene = this.viewer.scene;
-		this.globe = this.scene.globe;
-		this.ellipsoid = this.globe.ellipsoid;
-		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
-
 		this.setGetPositionAction();
 
 		// 分发初始化完成事件
