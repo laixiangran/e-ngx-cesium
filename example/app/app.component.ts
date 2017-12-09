@@ -14,53 +14,16 @@ export class AppComponent {
 	viewer: Viewer;
 	scene: Scene;
 	globe: Globe;
-	showSkyAtmosphere: boolean = true;
-	enableLighting: boolean = false;
-	depthTestAgainstTerrain: boolean = false;
-	showWaterEffect: boolean = true;
-	enableFog: boolean = true;
 
 	constructor() {
+		this.viewerOptions = {
+			vrButton: true // 启用VR模式
+		};
 	}
 
 	onViewerReady(evt: any) {
 		this.viewer = evt.viewer;
 		this.scene = evt.scene;
 		this.globe = evt.globe;
-	}
-
-	doShowSkyAtmosphere() {
-		const id: number = setTimeout(() => {
-			clearTimeout(id);
-			this.scene.skyAtmosphere.show = this.showSkyAtmosphere;
-		});
-	}
-
-	doEnableLighting() {
-		const id: number = setTimeout(() => {
-			clearTimeout(id);
-			this.globe.enableLighting = this.enableLighting;
-		});
-	}
-
-	doEnableFog() {
-		const id: number = setTimeout(() => {
-			clearTimeout(id);
-			this.scene.fog.enabled = this.enableFog;
-		});
-	}
-
-	doShowWaterEffect() {
-		const id: number = setTimeout(() => {
-			clearTimeout(id);
-			this.globe.showWaterEffect = this.showWaterEffect;
-		});
-	}
-
-	doDepthTestAgainstTerrain() {
-		const id: number = setTimeout(() => {
-			clearTimeout(id);
-			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
-		});
 	}
 }

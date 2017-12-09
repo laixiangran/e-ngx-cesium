@@ -11,10 +11,6 @@
     font-size: 14px;
     color: #FFFFFF;
 
-    .e-ngx-cesium-globe {
-
-    }
-
     .e-ngx-cesium-position {
         position: absolute;
         left: 5px;
@@ -22,7 +18,7 @@
 		font-size: 12px;
     }
 
-    /*.e-ngx-cesium-toolbar {
+    .e-ngx-cesium-toolbar {
         position: absolute;
         left: 5px;
         top: 5px;
@@ -30,6 +26,28 @@
         & > div {
             position: relative;
         }
+
+		.e-ngx-cesium-toolbar-setting {
+			.setting-panel {
+				width: 100px;
+				position: absolute;
+				text-align: center;
+				top: 35px;
+				left: -120px;
+				background: rgba(48, 51, 54, 0.8);
+				padding: 5px;
+				color: #FFFFFF;
+				transition: left 0.5s ease-out;
+
+				&.setting-panel-show {
+					left: 0;
+				}
+
+				div {
+					margin: 5px 5px;
+				}
+			}
+		}
 
         .e-ngx-cesium-button {
             box-sizing: border-box;
@@ -56,5 +74,5 @@
                 outline: none;
             }
         }
-    }*/
+    }
 }

@@ -1,16 +1,33 @@
 <div class="e-ngx-cesium-fullview e-ngx-cesium">
 	<div class="e-ngx-cesium-fullview e-ngx-cesium-globe" #globeContainer></div>
-	<div *ngIf="mousePosition" class="e-ngx-cesium-position">
+	<div *ngIf="enablePosition && mousePosition" class="e-ngx-cesium-position">
 		{{'经度: ' + mousePosition.long + '°'}}&nbsp;
 		{{'纬度: ' + mousePosition.lat + '°'}}&nbsp;
 		{{'海拔: ' + mousePosition.elevation + '米'}}&nbsp;
 		{{'视角海拔: ' + mousePosition.height + '米'}}&nbsp;
 	</div>
-	<!--<div class="e-ngx-cesium-toolbar">-->
-		<!--<div class="e-ngx-cesium-toolbar-home">-->
-			<!--<button class="e-ngx-cesium-button" (click)="homeCamera()">-->
-				<!--<span class="fa fa-home"></span>-->
-			<!--</button>-->
-		<!--</div>-->
-	<!--</div>-->
+	<div class="e-ngx-cesium-toolbar">
+		<div *ngIf="enableSetting" class="e-ngx-cesium-toolbar-setting" title="效果设置">
+			<button class="e-ngx-cesium-button" (click)="showSettingPanel()">
+				<span class="fa fa-cog"></span>
+			</button>
+			<div class="setting-panel" [ngClass]="{'setting-panel-show': isShowSettingPanel}">
+				<div>
+					<input type="checkbox" name="showSkyAtmosphere" [(ngModel)]="showSkyAtmosphere" (click)="doShowSkyAtmosphere()">大气渲染
+				</div>
+				<div>
+					<input type="checkbox" name="enableLighting" [(ngModel)]="enableLighting" (click)="doEnableLighting()">光照渲染
+				</div>
+				<div>
+					<input type="checkbox" name="enableFog" [(ngModel)]="enableFog" (click)="doEnableFog()">雾化效果
+				</div>
+				<div>
+					<input type="checkbox" name="showWaterEffect" [(ngModel)]="showWaterEffect" (click)="doShowWaterEffect()">波浪效果
+				</div>
+				<div>
+					<input type="checkbox" name="depthTestAgainstTerrain" [(ngModel)]="depthTestAgainstTerrain" (click)="doDepthTestAgainstTerrain()">深度监测
+				</div>
+			</div>
+		</div>
+	</div>
 </div>

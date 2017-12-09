@@ -35,11 +35,21 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@ViewChild('globeContainer') globeContainerRef: ElementRef;
 
 	@Input()
-	viewerOptions: ViewerOptions;
+	viewerOptions: ViewerOptions = {};
 	@Input()
 	proxy: string;
 	@Input()
 	rectangle: Rectangle;
+	@Input()
+	enablePosition: boolean = true;
+	@Input()
+	enableSetting: boolean = true;
+	@Input()
+	enableCompass: boolean = true;
+	@Input()
+	enableZoomControls: boolean = true;
+	@Input()
+	enableDistanceLegend: boolean = true;
 
 	@Output()
 	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
@@ -57,7 +67,13 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
 	};
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
-	mousePosition: CurrentPosition; // 鼠标位置
+	mousePosition: CurrentPosition = null; // 鼠标位置
+	isShowSettingPanel: boolean = false; // 显示设置面板
+	showSkyAtmosphere: boolean = true;
+	enableLighting: boolean = false;
+	depthTestAgainstTerrain: boolean = false;
+	showWaterEffect: boolean = true;
+	enableFog: boolean = true;
 
 	constructor() {
 	}
@@ -67,6 +83,11 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
 		this.initViewer();
+	}
+
+	ngOnDestroy() {
+		this.viewer['cesiumNavigation'].destroy();
+		this.viewer.destroy();
 	}
 
 	/**
@@ -105,13 +126,21 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
 
 		// 导航扩展
-		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {});
+		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {
+			enableCompass: this.enableCompass,
+			enableZoomControls: this.enableZoomControls,
+			enableDistanceLegend: this.enableDistanceLegend,
+			enableCompassOuterRing: this.enableCompass
+		});
 
 		// 添加天地图影像标注
 		if (addImageryLayer) {
 			this.viewer.imageryLayers.addImageryProvider(addImageryLayer);
 		}
-		this.setGetPositionAction();
+
+		if (this.enablePosition) {
+			this.setGetPositionAction();
+		}
 
 		// 分发初始化完成事件
 		this.viewerReady.emit({
@@ -176,8 +205,60 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		}
 	}
 
-	ngOnDestroy() {
-		this.viewer['cesiumNavigation'].destroy();
-		this.viewer.destroy();
+	/**
+	 * 显示设置面板
+	 */
+	showSettingPanel() {
+		this.isShowSettingPanel = !this.isShowSettingPanel;
+	}
+
+	/**
+	 * 大气渲染效果切换
+	 */
+	doShowSkyAtmosphere() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.scene.skyAtmosphere.show = this.showSkyAtmosphere;
+		});
+	}
+
+	/**
+	 * 光照渲染效果切换
+	 */
+	doEnableLighting() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.globe.enableLighting = this.enableLighting;
+		});
+	}
+
+	/**
+	 * 雾化效果切换
+	 */
+	doEnableFog() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.scene.fog.enabled = this.enableFog;
+		});
+	}
+
+	/**
+	 * 波浪效果切换
+	 */
+	doShowWaterEffect() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.globe.showWaterEffect = this.showWaterEffect;
+		});
+	}
+
+	/**
+	 * 深度监测切换
+	 */
+	doDepthTestAgainstTerrain() {
+		const id: number = setTimeout(() => {
+			clearTimeout(id);
+			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
+		});
 	}
 }
