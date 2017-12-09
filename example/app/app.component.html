@@ -1,5 +1,5 @@
 <div class="app-main">
-	<e-ngx-cesium [viewerOptions]="viewerOptions" [proxy]="proxy" (viewerReady)="onViewerReady($event)"></e-ngx-cesium>
+	<e-ngx-cesium [viewerOptions]="viewerOptions" (viewerReady)="onViewerReady($event)"></e-ngx-cesium>
 	<div class="some-tools">
 		<div>
 			<input type="checkbox" name="showSkyAtmosphere" [(ngModel)]="showSkyAtmosphere" (click)="doShowSkyAtmosphere()">大气渲染
