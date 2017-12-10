@@ -26,6 +26,30 @@ export interface CurrentPosition {
 	elevation: number; // 海拔
 }
 
+export class OpenStreetMapNominatimGeocoder {
+	geocode(input: string) {
+		const endpoint: string = 'https://nominatim.openstreetmap.org/search?';
+		const query: string = 'format=json&q=' + input;
+		const requestString: string = endpoint + query;
+		return Cesium.loadJson(requestString)
+			.then((results) => {
+				let bboxDegrees;
+				return results.map((resultObject) => {
+					bboxDegrees = resultObject.boundingbox;
+					return {
+						displayName: resultObject.display_name,
+						destination: Cesium.Rectangle.fromDegrees(
+							bboxDegrees[2],
+							bboxDegrees[0],
+							bboxDegrees[3],
+							bboxDegrees[1]
+						)
+					};
+				});
+			});
+	}
+}
+
 @Component({
 	selector: 'e-ngx-cesium',
 	templateUrl: './e-ngx-cesium.component.html',
@@ -64,6 +88,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		timeline: false,
 		animation: false,
 		baseLayerPicker: false,
+		geocoder: new OpenStreetMapNominatimGeocoder(),
 		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
 	};
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
@@ -124,6 +149,15 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		this.globe = this.scene.globe;
 		this.ellipsoid = this.globe.ellipsoid;
 		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
+		if (this.viewer.homeButton) {
+			this.viewer.homeButton.viewModel.tooltip = '初始视图';
+		}
+		if (this.viewer.navigationHelpButton) {
+			this.viewer.navigationHelpButton.viewModel.tooltip = '导航指示';
+		}
+		if (this.viewer.sceneModePicker) {
+			this.viewer.sceneModePicker.viewModel.tooltipColumbusView = '2.5D';
+		}
 
 		// 导航扩展
 		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {

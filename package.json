@@ -33,6 +33,7 @@
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
   "dependencies": {
+    "@turf/turf": "^5.1.5",
     "cesium": "^1.40.0",
     "cesium-typings": "^1.40.1",
     "font-awesome": "^4.7.0",
