@@ -29,18 +29,21 @@
 
 		.e-ngx-cesium-toolbar-setting {
 			.setting-panel {
-				width: 100px;
-				position: absolute;
-				text-align: center;
-				top: 35px;
-				left: -120px;
+                position: absolute;
+                top: 35px;
+                width: 100px;
+                max-height: 0;
+                overflow: hidden;
+                text-align: center;
 				background: rgba(48, 51, 54, 0.8);
 				padding: 5px;
 				color: #FFFFFF;
-				transition: left 0.5s ease-out;
+                opacity: 0;
+				transition: all 0.5s;
 
 				&.setting-panel-show {
-					left: 0;
+                    opacity: 1;
+                    max-height: 200px;
 				}
 
 				div {
