@@ -35,7 +35,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.5",
     "cesium": "^1.40.0",
-    "cesium-typings": "^1.40.1",
+    "cesium-typings": "^1.40.4",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4"
   },
