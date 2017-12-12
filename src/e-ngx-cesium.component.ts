@@ -91,6 +91,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		geocoder: new OpenStreetMapNominatimGeocoder(),
 		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
 	};
+	private getPositionActionHandler: ScreenSpaceEventHandler;
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
 	mousePosition: CurrentPosition = null; // 鼠标位置
 	isShowSettingPanel: boolean = false; // 显示设置面板
@@ -111,6 +112,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	ngOnDestroy() {
+		this.getPositionActionHandler.destroy();
 		this.viewer['cesiumNavigation'].destroy();
 		this.viewer.destroy();
 	}
@@ -190,11 +192,11 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	 */
 	setGetPositionAction() {
 		// 定义当前场景的画布元素的事件处理
-		const handler: ScreenSpaceEventHandler = new ScreenSpaceEventHandler(this.scene.canvas);
+		this.getPositionActionHandler = new ScreenSpaceEventHandler(this.scene.canvas);
 		let moveEndPosition: Cartesian2;
 
 		// 设置鼠标移动事件的处理函数，这里负责监听x,y坐标值变化
-		handler.setInputAction((move: MoveEvent) => {
+		this.getPositionActionHandler.setInputAction((move: MoveEvent) => {
 			if (move.endPosition) {
 				moveEndPosition = move.endPosition;
 				this.mousePosition = this.getMousePointPosition(moveEndPosition) || this.mousePosition;
@@ -202,7 +204,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		}, ScreenSpaceEventType.MOUSE_MOVE);
 
 		// 设置鼠标滚动事件的处理函数，这里负责监听高度值变化
-		handler.setInputAction(() => {
+		this.getPositionActionHandler.setInputAction(() => {
 			this.mousePosition.height = Math.ceil(this.viewer.camera.positionCartographic.height);
 		}, ScreenSpaceEventType.WHEEL);
 	}

@@ -1,6 +1,6 @@
 {
   "name": "e-ngx-cesium",
-  "version": "1.4.1",
+  "version": "1.4.2",
   "description": "e-ngx-cesium is a cesium component for Angular.",
   "keywords": [
     "angular",
@@ -35,7 +35,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.5",
     "cesium": "^1.40.0",
-    "cesium-typings": "^1.40.4",
+    "cesium-typings": "^1.40.5",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4"
   },
