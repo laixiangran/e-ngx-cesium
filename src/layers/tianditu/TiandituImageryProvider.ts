@@ -7,7 +7,7 @@ import WebMapTileServiceImageryProvider = Cesium.WebMapTileServiceImageryProvide
 
 export class TiandituImageryProvider {
 
-	static init(mapStyle: string, proxy?: DefaultProxy) {
+	static init(mapStyle: string, proxy?: DefaultProxy): WebMapTileServiceImageryProvider {
 		return new WebMapTileServiceImageryProvider({
 			url: `http://t0.tianditu.com/${mapStyle}_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=${mapStyle}&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles`,
 			layer: `tdt${mapStyle}BasicLayer`,
