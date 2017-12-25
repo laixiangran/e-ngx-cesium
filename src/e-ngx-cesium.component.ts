@@ -18,6 +18,8 @@ import Camera = Cesium.Camera;
 import Rectangle = Cesium.Rectangle;
 import defined = Cesium.defined;
 import DefaultProxy = Cesium.DefaultProxy;
+import { TiandituImageryProvider } from './layers/tianditu/TiandituImageryProvider';
+import { TiandituMapsStyle } from './layers/tianditu/TiandituMapsStyle';
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -123,23 +125,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	initViewer() {
 		let addImageryLayer: ImageryProvider;
 		if (!(this.viewerOptions && this.viewerOptions.imageryProvider)) {
-			addImageryLayer = new Cesium.WebMapTileServiceImageryProvider({
-				url: 'http://t0.tianditu.com/cia_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=cia&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default.jpg',
-				layer: 'tdtVecBasicLayer',
-				style: 'default',
-				format: 'image/jpeg',
-				proxy: this.defaultProxy,
-				tileMatrixSetID: 'TDTMapsCompatible'
-			});
+			addImageryLayer = TiandituImageryProvider.init(TiandituMapsStyle.CIA);
 		}
-		this.defaultViewerOptions.imageryProvider = new Cesium.WebMapTileServiceImageryProvider({
-			url: 'http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles',
-			layer: 'tdtVecBasicLayer',
-			style: 'default',
-			format: 'image/jpeg',
-			proxy: this.defaultProxy,
-			tileMatrixSetID: 'TDTMapsCompatible'
-		});
+		this.defaultViewerOptions.imageryProvider = TiandituImageryProvider.init(TiandituMapsStyle.IMG);
 		this.defaultViewerOptions.terrainProvider = new Cesium.CesiumTerrainProvider({
 			url: 'https://assets.agi.com/stk-terrain/world',
 			requestWaterMask: true,
