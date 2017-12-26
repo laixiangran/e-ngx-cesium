@@ -1,11 +1,10 @@
 /// <reference path="../node_modules/cesium-typings/index.d.ts" />
 
-import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import * as _ from 'lodash';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
-import ImageryProvider = Cesium.ImageryProvider;
 import Scene = Cesium.Scene;
 import Ellipsoid = Cesium.Ellipsoid;
 import ScreenSpaceEventHandler = Cesium.ScreenSpaceEventHandler;
@@ -20,6 +19,10 @@ import defined = Cesium.defined;
 import DefaultProxy = Cesium.DefaultProxy;
 import { TiandituImageryProvider } from './layers/tianditu/TiandituImageryProvider';
 import { TiandituMapsStyle } from './layers/tianditu/TiandituMapsStyle';
+import ImageryLayer = Cesium.ImageryLayer;
+import ImageryLayerCollection = Cesium.ImageryLayerCollection;
+import ImagerySplitDirection = Cesium.ImagerySplitDirection;
+import ImageryProvider = Cesium.ImageryProvider;
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -59,26 +62,33 @@ export class OpenStreetMapNominatimGeocoder {
 })
 export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@ViewChild('globeContainer') globeContainerRef: ElementRef;
+	@ViewChild('slider') sliderRef: ElementRef;
 
 	@Input()
-	viewerOptions: ViewerOptions = {};
+	viewerOptions: ViewerOptions = {}; // 创建Cesium.Viewer的属性配置
 	@Input()
-	proxy: string;
+	proxy: string; // 代理路径
 	@Input()
-	rectangle: Rectangle;
+	rectangle: Rectangle; // 初始范围
 	@Input()
-	enablePosition: boolean = true;
+	enablePosition: boolean = true; // 启用位置信息部件
 	@Input()
-	enableSetting: boolean = true;
+	enableSetting: boolean = true; // 启用效果设置部件
 	@Input()
-	enableCompass: boolean = true;
+	enableCompass: boolean = true; // 启用罗盘部件
 	@Input()
-	enableZoomControls: boolean = true;
+	enableZoomControls: boolean = true; // 启用缩放部件
 	@Input()
-	enableDistanceLegend: boolean = true;
+	enableDistanceLegend: boolean = true; // 启用比例尺部件
+	@Input()
+	enableRollerShutters: boolean = false; // 启用卷帘对比
+	@Input()
+	contrastImageryProviders: ImageryProvider[]; // 卷帘对比的图层。图层显示顺序是先左边显示，然后右边显示
 
 	@Output()
-	viewerReady: EventEmitter<any> = new EventEmitter<any>(false);
+	viewerReady: EventEmitter<any> = new EventEmitter<any>(false); // 组件初始化完成事件
+	@Output()
+	sliderChange: EventEmitter<any> = new EventEmitter<any>(false); // 卷帘滑块位置变化事件
 
 	private globeContainer: HTMLDivElement;
 	private viewer: Viewer; // 视图
@@ -102,32 +112,49 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	depthTestAgainstTerrain: boolean = false;
 	showWaterEffect: boolean = true;
 	enableFog: boolean = true;
+	slider: HTMLDivElement;
+	dragStartX: number = 0;
+	sliderMove: any;
+	windowMouseUp: any;
 
-	constructor() {
+	constructor(private renderer: Renderer2) {
+		this.sliderMove = (e: MouseEvent) => {
+			const splitPosition: number = (e.clientX - this.dragStartX) / this.slider.parentElement.offsetWidth;
+			this.renderer.setStyle(this.slider, 'left', 100.0 * splitPosition + '%')
+			this.viewer.scene.imagerySplitPosition = splitPosition;
+			this.sliderChange.emit(splitPosition);
+		};
+
+		this.windowMouseUp = () => {
+			window.removeEventListener('mousemove', this.sliderMove, true);
+		};
 	}
 
 	ngOnInit() {
 		this.globeContainer = this.globeContainerRef.nativeElement;
-		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
-		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
-		this.initViewer();
+		this.init();
 	}
 
 	ngOnDestroy() {
+		if (this.enableRollerShutters) {
+			window.removeEventListener('mouseup', this.windowMouseUp, false);
+		}
 		this.getPositionActionHandler.destroy();
 		this.viewer['cesiumNavigation'].destroy();
 		this.viewer.destroy();
 	}
 
 	/**
-	 * 初始化视图
+	 * 组件初始化
 	 */
-	initViewer() {
-		let addImageryLayer: ImageryProvider;
+	init() {
+		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
+		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
+		let tiandituCIAWImageryProvider: TiandituImageryProvider;
 		if (!(this.viewerOptions && this.viewerOptions.imageryProvider)) {
-			addImageryLayer = TiandituImageryProvider.init(TiandituMapsStyle.CIA);
+			tiandituCIAWImageryProvider = new TiandituImageryProvider(TiandituMapsStyle.CIA_W);
 		}
-		this.defaultViewerOptions.imageryProvider = TiandituImageryProvider.init(TiandituMapsStyle.IMG);
+		this.defaultViewerOptions.imageryProvider = new TiandituImageryProvider(TiandituMapsStyle.IMG_W);
 		this.defaultViewerOptions.terrainProvider = new Cesium.CesiumTerrainProvider({
 			url: 'https://assets.agi.com/stk-terrain/world',
 			requestWaterMask: true,
@@ -158,12 +185,19 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		});
 
 		// 添加天地图影像标注
-		if (addImageryLayer) {
-			this.viewer.imageryLayers.addImageryProvider(addImageryLayer);
+		if (tiandituCIAWImageryProvider) {
+			this.viewer.imageryLayers.addImageryProvider(tiandituCIAWImageryProvider);
 		}
 
 		if (this.enablePosition) {
 			this.setGetPositionAction();
+		}
+
+		if (this.enableRollerShutters) {
+			const id: number = setTimeout(() => {
+				clearTimeout(id);
+				this.initContrastImageryLayers();
+			});
 		}
 
 		// 分发初始化完成事件
@@ -173,6 +207,29 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			globe: this.globe,
 			ellipsoid: this.ellipsoid
 		});
+	}
+
+	/**
+	 * 初始化卷帘对比的图层
+	 */
+	initContrastImageryLayers() {
+		this.slider = this.sliderRef.nativeElement;
+		window.addEventListener('mouseup', this.windowMouseUp, false);
+		const layers: ImageryLayerCollection = this.viewer.imageryLayers;
+		this.contrastImageryProviders.forEach((imageryProvider: ImageryProvider, index: number) => {
+			const layer: ImageryLayer = layers.addImageryProvider(imageryProvider);
+			layer.splitDirection = index % 2 === 0 ? ImagerySplitDirection.LEFT : ImagerySplitDirection.RIGHT;
+		});
+		this.scene.imagerySplitPosition = 0.5;
+	}
+
+	/**
+	 * 卷帘对比的滑块按下事件
+	 * @param {MouseEvent} e
+	 */
+	sliderMousedown(e: MouseEvent) {
+		this.dragStartX = e.clientX - this.sliderRef.nativeElement.offsetLeft;
+		window.addEventListener('mousemove', this.sliderMove, true);
 	}
 
 	/**

@@ -5,16 +5,18 @@
 import DefaultProxy = Cesium.DefaultProxy;
 import WebMapTileServiceImageryProvider = Cesium.WebMapTileServiceImageryProvider;
 
-export class TiandituImageryProvider {
+export class TiandituImageryProvider extends WebMapTileServiceImageryProvider {
 
-	static init(mapStyle: string, proxy?: DefaultProxy): WebMapTileServiceImageryProvider {
-		return new WebMapTileServiceImageryProvider({
-			url: `http://t0.tianditu.com/${mapStyle}_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=${mapStyle}&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles`,
-			layer: `tdt${mapStyle}BasicLayer`,
+	constructor(mapStyle: string, proxy?: DefaultProxy) {
+		const layer: string = mapStyle.split('_')[0],
+			tilematrixset: string = mapStyle.split('_')[1];
+		super({
+			url: `http://{s}.tianditu.com/${mapStyle}/wmts?service=WMTS&version=1.0.0&request=GetTile&tilematrix={TileMatrix}&layer=${layer}&style=default&tileRow={TileRow}&tileCol={TileCol}&tilematrixset=${tilematrixset}&format=tiles`,
+			layer: layer,
 			style: 'default',
-			format: 'image/jpeg',
+			tileMatrixSetID: tilematrixset,
 			proxy: proxy,
-			tileMatrixSetID: 'TDTMapsCompatible'
+			subdomains: ['t0', 't1', 't2', 't3', 't4', 't5', 't6', 't7']
 		});
 	}
 }

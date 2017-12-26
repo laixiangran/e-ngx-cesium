@@ -114,6 +114,8 @@
 
 - `proxy`（`string`） - 设置代理路径，可使用esri提供的[几个平台的代理文件](https://github.com/Esri/resource-proxy)
 
+- `rectangle`（`Rectangle`） - 初始范围
+
 - `enablePosition`（`boolean?=true`） - 启用位置信息部件
 
 - `enableSetting`（`boolean?=true`） - 启用效果设置部件
@@ -124,9 +126,15 @@
 
 - `enableDistanceLegend`（`boolean?=true`） - 启用比例尺部件
 
+- `enableRollerShutters`（`boolean?=false`） - 启用卷帘对比
+
+- `contrastImageryLayers`（`ImageryProvider[]`） - 卷帘对比的图层。图层显示顺序：左-右-左-右
+
 ### Outputs
 
 - `viewerReady` - Cesium.Viewer创建完成后会触发该事件，参数$event为`{viewer: Cesium.Viewer, scene: Cesium.Scene, globe: Cesium.Globe, ellipsoid: Cesium.Ellipsoid}`
+
+- `sliderChange` - 卷帘对比滑块位置变化事件，参数$event为当前ImageryLayer.splitDirection的值
 
 ## Develop
 

@@ -15,7 +15,21 @@
         position: absolute;
         left: 5px;
         bottom: 5px;
-		font-size: 12px;
+        font-size: 12px;
+    }
+
+    .e-ngx-cesium-slider {
+        position: absolute;
+        left: 50%;
+        top: 0;
+        background-color: #D3D3D3;
+        width: 5px;
+        height: 100%;
+        z-index: 9999;
+
+        &:hover {
+            cursor: ew-resize;
+        }
     }
 
     .e-ngx-cesium-toolbar {
@@ -27,30 +41,30 @@
             position: relative;
         }
 
-		.e-ngx-cesium-toolbar-setting {
-			.setting-panel {
+        .e-ngx-cesium-toolbar-setting {
+            .setting-panel {
                 position: absolute;
                 top: 35px;
                 width: 100px;
                 max-height: 0;
                 overflow: hidden;
                 text-align: center;
-				background: rgba(48, 51, 54, 0.8);
-				padding: 5px;
-				color: #FFFFFF;
+                background: rgba(48, 51, 54, 0.8);
+                padding: 5px;
+                color: #FFFFFF;
                 opacity: 0;
-				transition: all 0.5s;
+                transition: all 0.5s;
 
-				&.setting-panel-show {
+                &.setting-panel-show {
                     opacity: 1;
                     max-height: 200px;
-				}
+                }
 
-				div {
-					margin: 5px 5px;
-				}
-			}
-		}
+                div {
+                    margin: 5px 5px;
+                }
+            }
+        }
 
         .e-ngx-cesium-button {
             box-sizing: border-box;
@@ -60,7 +74,7 @@
             color: #FFFFFF;
             width: 32px;
             height: 32px;
-			line-height: 32px;
+            line-height: 32px;
             border-radius: 14%;
             padding: 0;
             vertical-align: middle;

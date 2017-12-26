@@ -4,10 +4,10 @@ import Viewer = Cesium.Viewer;
 import Globe = Cesium.Globe;
 import Scene = Cesium.Scene;
 import ImageryLayerCollection = Cesium.ImageryLayerCollection;
-import BingMapsImageryProvider = Cesium.BingMapsImageryProvider;
 import ImageryLayer = Cesium.ImageryLayer;
 import ImagerySplitDirection = Cesium.ImagerySplitDirection;
 import { TiandituImageryProvider, TiandituMapsStyle } from '../../src';
+import ImageryProvider = Cesium.ImageryProvider;
 
 @Component({
 	selector: 'app-root',
@@ -19,23 +19,28 @@ export class AppComponent {
 	viewer: Viewer;
 	scene: Scene;
 	globe: Globe;
+	contrastImageryProviders: ImageryProvider[] = [];
+	enableRollerShutters: boolean = true;
 
 	constructor() {
 		this.viewerOptions = {
 			vrButton: true // 启用VR模式
 		};
+		this.contrastImageryProviders = [
+			new TiandituImageryProvider(TiandituMapsStyle.VEC_W),
+			new TiandituImageryProvider(TiandituMapsStyle.TER_W),
+			new TiandituImageryProvider(TiandituMapsStyle.CVA_W),
+			new TiandituImageryProvider(TiandituMapsStyle.CTA_W)
+		];
 	}
 
 	onViewerReady(evt: any) {
 		this.viewer = evt.viewer;
 		this.scene = evt.scene;
 		this.globe = evt.globe;
+	}
 
-		const layers: ImageryLayerCollection = this.viewer.imageryLayers;
-		const tdtVecLayer: ImageryLayer = layers.addImageryProvider(TiandituImageryProvider.init(TiandituMapsStyle.VEC));
-		const tdtCvaLayer: ImageryLayer = layers.addImageryProvider(TiandituImageryProvider.init(TiandituMapsStyle.CVA));
-		tdtVecLayer.splitDirection = ImagerySplitDirection.RIGHT;
-		tdtCvaLayer.splitDirection = ImagerySplitDirection.RIGHT;
-		this.scene.imagerySplitPosition = 0.5;
+	onSliderChange(evt: any) {
+		console.log(evt);
 	}
 }

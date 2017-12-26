@@ -1,4 +1,5 @@
 <div class="e-ngx-cesium-fullview e-ngx-cesium">
+	<div *ngIf="enableRollerShutters" class="e-ngx-cesium-slider" (mousedown)="sliderMousedown($event)" #slider></div>
 	<div class="e-ngx-cesium-fullview e-ngx-cesium-globe" #globeContainer></div>
 	<div *ngIf="enablePosition && mousePosition" class="e-ngx-cesium-position">
 		{{'经度: ' + mousePosition.long + '°'}}&nbsp;
