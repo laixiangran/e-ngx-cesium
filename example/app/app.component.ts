@@ -27,10 +27,10 @@ export class AppComponent {
 			vrButton: true // 启用VR模式
 		};
 		this.contrastImageryProviders = [
-			new TiandituImageryProvider(TiandituMapsStyle.VEC_W),
-			new TiandituImageryProvider(TiandituMapsStyle.TER_W),
-			new TiandituImageryProvider(TiandituMapsStyle.CVA_W),
-			new TiandituImageryProvider(TiandituMapsStyle.CTA_W)
+			new TiandituImageryProvider(TiandituMapsStyle.VEC_C),
+			new TiandituImageryProvider(TiandituMapsStyle.TER_C),
+			new TiandituImageryProvider(TiandituMapsStyle.CVA_C),
+			new TiandituImageryProvider(TiandituMapsStyle.CTA_C)
 		];
 	}
 
