@@ -1,6 +1,6 @@
 {
   "name": "e-ngx-cesium",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "基于Angular的三维地球组件，依赖三维框架cesium",
   "keywords": [
     "angular",
