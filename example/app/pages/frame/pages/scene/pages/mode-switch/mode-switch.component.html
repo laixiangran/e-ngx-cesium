@@ -1,0 +1,18 @@
+<div class="globe-container">
+	<e-ngx-cesium *ngIf="isReShow" [viewerOptions]="viewerOptions"
+	              (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+	<div class="server-select">
+		<p-dropdown [options]="modes" [(ngModel)]="selectedMode" (onChange)="modeChange($event)"></p-dropdown>
+	</div>
+</div>
+<div *ngIf="isReShow" class="readme-container">
+	<h3>描述</h3>
+	<p>
+		点击右上角球形图标可切换场景scene模式；点击下拉框可切换地球模式（默认为椭球），地球模式的定义必须在场景scene初始化之前定义，否则无效！
+	</p>
+	<h3>操作说明</h3>
+	<p>
+		需要连接Internet。
+	</p>
+</div>

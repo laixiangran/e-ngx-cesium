@@ -7,7 +7,6 @@ import { GaodeImageryProvider, GaodeMapsStyle } from '../../../../../../../../sr
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
-	selector: 'app-gaode',
 	templateUrl: './gaode.component.html',
 	styleUrls: ['./gaode.component.scss']
 })

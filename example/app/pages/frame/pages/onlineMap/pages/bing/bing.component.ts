@@ -6,7 +6,6 @@ import Globe = Cesium.Globe;
 import BingMapsImageryProvider = Cesium.BingMapsImageryProvider;
 
 @Component({
-	selector: 'app-bing',
 	templateUrl: './bing.component.html',
 	styleUrls: ['./bing.component.scss']
 })

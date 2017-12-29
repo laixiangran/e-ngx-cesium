@@ -12,6 +12,10 @@ const frameRoutes: Routes = [
 				loadChildren: './pages/onlineMap/onlineMap.module#OnlineMapModule',
 			},
 			{
+				path: 'scene',
+				loadChildren: './pages/scene/scene.module#SceneModule',
+			},
+			{
 				path: '',
 				redirectTo: 'onlineMap',
 				pathMatch: 'full'

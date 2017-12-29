@@ -6,7 +6,6 @@ import Globe = Cesium.Globe;
 import ArcGisMapServerImageryProvider = Cesium.ArcGisMapServerImageryProvider;
 
 @Component({
-	selector: 'app-arcgis',
 	templateUrl: './arcgis.component.html',
 	styleUrls: ['./arcgis.component.scss']
 })

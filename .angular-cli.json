@@ -20,6 +20,7 @@
 			"main": "main.ts",
 			"polyfills": "polyfills.ts",
 			"tsconfig": "tsconfig.json",
+			"prefix": "",
 			"styles": [
 				"./styles.scss",
 				"../node_modules/font-awesome/css/font-awesome.min.css",

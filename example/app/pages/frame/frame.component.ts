@@ -40,6 +40,28 @@ export class FrameComponent {
 						label: 'ArcGIS'
 					}
 				]
+			},
+			{
+				url: '/frame/scene',
+				icon: 'fa fa-map',
+				label: '场景',
+				children: [
+					{
+						url: '/frame/scene/rollerShutters',
+						icon: 'fa fa-map',
+						label: '卷帘对比'
+					},
+					{
+						url: '/frame/scene/modeSwitch',
+						icon: 'fa fa-map',
+						label: '模式切换'
+					},
+					{
+						url: '/frame/scene/underGround',
+						icon: 'fa fa-map',
+						label: '地下模式'
+					}
+				]
 			}
 		];
 	}
