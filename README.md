@@ -93,38 +93,31 @@
 
 	```typescript
 	private defaultViewerOptions: ViewerOptions = {
-        timeline: false,
-        animation: false,
-        baseLayerPicker: false,
-        fullscreenElement: this.globeContainer, // 这里设置viewer所在元素为全屏的元素
-        imageryProvider: new Cesium.WebMapTileServiceImageryProvider({
-            url: 'http://t0.tianditu.com/img_w/wmts?service=wmts&request=GetTile&version=1.0.0&LAYER=img&tileMatrixSet=w&TileMatrix={TileMatrix}&TileRow={TileRow}&TileCol={TileCol}&style=default&format=tiles',
-            layer: 'tdtVecBasicLayer',
-            style: 'default',
-            format: 'image/jpeg',
-            tileMatrixSetID: 'TDTMapsCompatible'
-        }),
-        terrainProvider: new Cesium.CesiumTerrainProvider({
-            url: 'https://assets.agi.com/stk-terrain/world',
-            requestWaterMask: true,
-            requestVertexNormals: true
-        })
-    };
+		timeline: false,
+		animation: false,
+		baseLayerPicker: false,
+		geocoder: false,
+		homeButton: false,
+		navigationHelpButton: false,
+		sceneModePicker: false,
+		fullscreenButton: false,
+		fullscreenElement: this.globeContainer // 设置viewer所在元素为全屏的元素
+	};
 	```
 
 - `proxy`（`string`） - 设置代理路径，可使用esri提供的[几个平台的代理文件](https://github.com/Esri/resource-proxy)
 
-- `rectangle`（`Rectangle`） - 初始范围
+- `rectangle`（`Rectangle`） - 初始范围，默认中国
 
-- `enablePosition`（`boolean?=true`） - 启用位置信息部件
+- `enablePosition`（`boolean?=false`） - 启用位置信息部件
 
-- `enableSetting`（`boolean?=true`） - 启用效果设置部件
+- `enableSetting`（`boolean?=false`） - 启用效果设置部件
 
 - `enableCompass`（`boolean?=true`） - 启用罗盘部件
 
 - `enableZoomControls`（`boolean?=true`） - 启用缩放部件
 
-- `enableDistanceLegend`（`boolean?=true`） - 启用比例尺部件
+- `enableDistanceLegend`（`boolean?=false`） - 启用比例尺部件
 
 - `enableRollerShutters`（`boolean?=false`） - 启用卷帘对比
 

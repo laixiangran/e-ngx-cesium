@@ -1,0 +1,115 @@
+$backgroundColor: #2B84D2;
+
+.mainFrame {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    .side {
+        float: left;
+        width: 300px;
+        height: 100%;
+        background-color: $backgroundColor;
+        ul {
+            list-style: none;
+        }
+        ul.list {
+            padding: 16px 0 0 0;
+            li.list-item {
+                width: 100%;
+                height: auto;
+                font-size: 18px;
+                letter-spacing: 2px;
+
+                a {
+                    display: block;
+                    text-decoration: none;
+                }
+
+                a.container {
+                    width: 100%;
+                    height: 70px;
+                    line-height: 70px;
+                    border-bottom: 1px inset #2176C0;
+                    padding: 0;
+                    .icon {
+                        float: left;
+                        width: 87px;
+                        height: 69px;
+                        line-height: 69px;
+                        text-align: center;
+                        background-color: #4996D8;
+                        font-size: 26px;
+                        color: #FFFFFF;
+                    }
+                    .title {
+                        margin-left: 87px;
+                        height: 70px;
+                        line-height: 70px;
+                        padding-left: 40px;
+                        cursor: pointer;
+                        a {
+                            color: #FFFFFF;
+                            &:hover, &:visited, &:link {
+                                text-decoration: none;
+                            }
+
+                            span {
+                                cursor: pointer;
+                            }
+                        }
+                    }
+                    &.active + ul {
+                        max-height: 300px;
+                    }
+                    &.active, &:hover {
+                        background: #0B61AA;
+                        .icon {
+                            background-color: #4FACFB;
+                        }
+                    }
+                    &.first {
+                        border-top: 1px solid #2176C0;
+                        height: 71px;
+                        line-height: 71px;
+                    }
+                }
+                ul {
+                    max-height: 0;
+                    overflow: hidden;
+                    transition: max-height 0.5s;
+                    padding: 0;
+                    li {
+                        height: 50px;
+                        .left {
+                            float: left;
+                            width: 87px;
+                            height: 100%;
+                            background-color: #4FACFB;
+                        }
+                        .right {
+                            margin-left: 87px;
+                            height: 100%;
+                            line-height: 50px;
+                            padding-left: 15px;
+                            background-color: #0B61AA;
+                            cursor: pointer;
+                            color: #FFFFFF;
+                            font-size: 14px;
+                            &:hover, &.active {
+                                background-color: #267FCA;
+                            }
+                            &:not(last) {
+                                border-bottom: 1px solid #5792C5;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    .frame-content {
+        margin-left: 300px;
+    }
+}

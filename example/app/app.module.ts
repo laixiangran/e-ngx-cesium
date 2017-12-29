@@ -1,14 +1,18 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppComponent } from './app.component';
-import { ENgxCesiumModule } from '../../src/e-ngx-cesium.module';
 import { FormsModule } from '@angular/forms';
+import { AppRoutingModule } from './app.routes';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DropdownModule } from 'primeng/primeng';
 
 @NgModule({
 	imports: [
 		BrowserModule,
+		BrowserAnimationsModule,
 		FormsModule,
-		ENgxCesiumModule
+		AppRoutingModule,
+		DropdownModule
 	],
 	declarations: [
 		AppComponent

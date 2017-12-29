@@ -5,3 +5,41 @@ html, body {
     padding: 0;
     overflow: hidden;
 }
+
+div, p, h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+.fullView {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.globe-container {
+    position: relative;
+    width: 100%;
+}
+
+.server-select {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+.readme-container {
+    padding-left: 10px;
+    width: 100%;
+
+    h3 {
+        margin: 5px 0;
+    }
+
+    p {
+        padding-left: 20px;
+        font-size: 14px;
+    }
+}

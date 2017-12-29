@@ -23,7 +23,9 @@
 			"styles": [
 				"./styles.scss",
 				"../node_modules/font-awesome/css/font-awesome.min.css",
-				"../node_modules/cesium/Build/Cesium/Widgets/widgets.css"
+				"../node_modules/cesium/Build/Cesium/Widgets/widgets.css",
+				"../node_modules/primeng/resources/themes/bootstrap/theme.css",
+				"../node_modules/primeng/resources/primeng.min.css"
 			],
 			"scripts": [
 				"../node_modules/cesium/Build/Cesium/Cesium.js",
@@ -39,6 +41,26 @@
 	],
 	"defaults": {
 		"styleExt": "scss",
-		"component": {}
+		"class": {
+			"spec": false
+		},
+		"component": {
+			"spec": false
+		},
+		"directive": {
+			"spec": false
+		},
+		"guard": {
+			"spec": false
+		},
+		"module": {
+			"spec": false
+		},
+		"pipe": {
+			"spec": false
+		},
+		"service": {
+			"spec": false
+		}
 	}
 }

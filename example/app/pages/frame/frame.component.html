@@ -1,0 +1,31 @@
+<div class="mainFrame">
+	<div class="side">
+		<ul class="list">
+			<li class="list-item" *ngFor="let item of currUserMenus;let i = index;">
+				<a [routerLink]="item.url" routerLinkActive="active" class="container" [class.first]="i === 0">
+					<div class="icon">
+						<span [class]="item.icon"></span>
+					</div>
+					<div class="title">
+						<a>
+							<span>{{item.label}}</span>
+						</a>
+					</div>
+				</a>
+				<ul *ngIf="item.children">
+					<li *ngFor="let nav of item.children">
+						<div class="left"></div>
+						<a class="right" [routerLink]="nav.url"
+							 routerLinkActive="active">
+							<span [class]="nav.icon"></span>
+							{{nav.label}}
+						</a>
+					</li>
+				</ul>
+			</li>
+		</ul>
+	</div>
+	<div class="fullView frame-content">
+		<router-outlet></router-outlet>
+	</div>
+</div>

@@ -17,8 +17,8 @@ import Camera = Cesium.Camera;
 import Rectangle = Cesium.Rectangle;
 import defined = Cesium.defined;
 import DefaultProxy = Cesium.DefaultProxy;
-import { TiandituImageryProvider } from './layers/tianditu/TiandituImageryProvider';
-import { TiandituMapsStyle } from './layers/tianditu/TiandituMapsStyle';
+import { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
+import { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 import ImageryLayer = Cesium.ImageryLayer;
 import ImageryLayerCollection = Cesium.ImageryLayerCollection;
 import ImagerySplitDirection = Cesium.ImagerySplitDirection;
@@ -71,15 +71,15 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@Input()
 	rectangle: Rectangle; // 初始范围
 	@Input()
-	enablePosition: boolean = true; // 启用位置信息部件
+	enablePosition: boolean = false; // 启用位置信息部件
 	@Input()
-	enableSetting: boolean = true; // 启用效果设置部件
+	enableSetting: boolean = false; // 启用效果设置部件
 	@Input()
 	enableCompass: boolean = true; // 启用罗盘部件
 	@Input()
 	enableZoomControls: boolean = true; // 启用缩放部件
 	@Input()
-	enableDistanceLegend: boolean = true; // 启用比例尺部件
+	enableDistanceLegend: boolean = false; // 启用比例尺部件
 	@Input()
 	enableRollerShutters: boolean = false; // 启用卷帘对比
 	@Input()
@@ -100,8 +100,12 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		timeline: false,
 		animation: false,
 		baseLayerPicker: false,
-		geocoder: new OpenStreetMapNominatimGeocoder(),
-		fullscreenElement: this.globeContainer // 这里设置viewer所在元素为全屏的元素
+		geocoder: false,
+		homeButton: false,
+		navigationHelpButton: false,
+		sceneModePicker: false,
+		fullscreenButton: false,
+		fullscreenElement: this.globeContainer // 设置viewer所在元素为全屏的元素
 	};
 	private getPositionActionHandler: ScreenSpaceEventHandler;
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
@@ -139,7 +143,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		if (this.enableRollerShutters) {
 			window.removeEventListener('mouseup', this.windowMouseUp, false);
 		}
-		this.getPositionActionHandler.destroy();
+		if (this.getPositionActionHandler) {
+			this.getPositionActionHandler.destroy();
+		}
 		this.viewer['cesiumNavigation'].destroy();
 		this.viewer.destroy();
 	}
@@ -161,6 +167,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			requestVertexNormals: true
 		});
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
+		if (viewerOptions.geocoder) {
+			viewerOptions.geocoder = new OpenStreetMapNominatimGeocoder();
+		}
 		this.viewer = new Viewer(this.globeContainer, viewerOptions);
 		this.scene = this.viewer.scene;
 		this.globe = this.scene.globe;

@@ -1,0 +1,18 @@
+<div class="globe-container">
+	<e-ngx-cesium [viewerOptions]="viewerOptions"
+	              (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+	<div class="server-select">
+		<p-dropdown [options]="servers" [(ngModel)]="selectedServer" (onChange)="serverChange($event)"></p-dropdown>
+	</div>
+</div>
+<div class="readme-container">
+	<h3>描述</h3>
+	<p>
+		点击下拉框选择加载天地图的影像、地图、地形及相应的中英文注记服务。
+	</p>
+	<h3>操作说明</h3>
+	<p>
+		需要连接Internet。
+	</p>
+</div>

@@ -35,7 +35,7 @@
   "dependencies": {
     "@turf/turf": "^5.1.5",
     "cesium": "^1.40.0",
-    "cesium-typings": "^1.40.7",
+    "cesium-typings": "^1.40.8",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4"
   },
@@ -50,6 +50,7 @@
     "@angular/platform-browser": "^4.0.0",
     "@angular/platform-browser-dynamic": "^4.0.0",
     "@angular/router": "^4.0.0",
+    "@angular/animations": "^4.0.0",
     "@types/node": "^6.0.60",
     "classlist.js": "^1.1.20150312",
     "codelyzer": "~3.0.1",
@@ -63,6 +64,7 @@
     "gulp-replace": "^0.6.1",
     "gulp-sass": "^3.1.0",
     "intl": "^1.2.5",
+    "primeng": "^4.3.0",
     "run-sequence": "^1.2.2",
     "rxjs": "^5.1.0",
     "stylelint": "^7.12.0",
