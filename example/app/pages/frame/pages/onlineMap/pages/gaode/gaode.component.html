@@ -1,0 +1,18 @@
+<div class="globe-container">
+	<e-ngx-cesium [viewerOptions]="viewerOptions"
+	              (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+	<div class="server-select">
+		<p-dropdown [options]="servers" [(ngModel)]="selectedServer" (onChange)="serverChange($event)"></p-dropdown>
+	</div>
+</div>
+<div class="readme-container">
+	<h3>描述</h3>
+	<p>
+		点击下拉框选择加载高德矢量地图、影像地图及影像标注服务。
+	</p>
+	<h3>操作说明</h3>
+	<p>
+		需要连接Internet。
+	</p>
+</div>
