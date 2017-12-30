@@ -1,0 +1,12 @@
+<div class="globe-container">
+	<e-ngx-cesium [viewerOptions]="viewerOptions"
+				  [enableSetting]="true"
+				  (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+</div>
+<div class="readme-container">
+	<h3>描述</h3>
+	<p>
+		点击左上方的效果设置图标，可开启/关闭大气渲染、光照渲染、雾化效果、波浪效果、深度监测等场景效果。
+	</p>
+</div>

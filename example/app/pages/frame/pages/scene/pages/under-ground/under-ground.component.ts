@@ -29,8 +29,8 @@ export class UnderGroundComponent implements OnInit {
 	}
 
 	test() {
-		// this.scene.skyAtmosphere.show = false; // 隐藏大气渲染效果
-		// this.scene.skyBox.show = false; // 隐藏太空背景
+		this.scene.skyAtmosphere.show = false; // 隐藏大气渲染效果
+		this.scene.skyBox.show = false; // 隐藏太空背景
 		this.scene['undergroundMode'] = true; // 设置开启地下场景
 		this.scene.screenSpaceCameraController.minimumZoomDistance = -1000; // 设置相机最小缩放距离，距离地表-1000米
 		this.scene.camera.setView({

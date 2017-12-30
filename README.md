@@ -31,7 +31,7 @@
     ],
     "scripts": [
         "../node_modules/cesium/Build/Cesium/Cesium.js",
-        "../node_modules/e-ngx-cesium/dist/viewerCesiumNavigationMixin.js"
+        "../node_modules/e-ngx-cesium/dist/components/navigation/viewerCesiumNavigationMixin.js"
     ]
 	```
 

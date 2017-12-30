@@ -108,7 +108,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		fullscreenElement: this.globeContainer // 设置viewer所在元素为全屏的元素
 	};
 	private getPositionActionHandler: ScreenSpaceEventHandler;
+	private changeCurActionHandler: ScreenSpaceEventHandler;
 	private defaultRectangle: Rectangle = Rectangle.fromDegrees(73.666667, 3.866667, 135.041667, 53.55); // 默认中国
+	globeHasPan: boolean = false;
 	mousePosition: CurrentPosition = null; // 鼠标位置
 	isShowSettingPanel: boolean = false; // 显示设置面板
 	showSkyAtmosphere: boolean = true;
@@ -145,6 +147,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		}
 		if (this.getPositionActionHandler) {
 			this.getPositionActionHandler.destroy();
+		}
+		if (this.changeCurActionHandler) {
+			this.changeCurActionHandler.destroy();
 		}
 		this.viewer['cesiumNavigation'].destroy();
 		this.viewer.destroy();
@@ -209,6 +214,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			});
 		}
 
+		this.setChangeCurAction();
+
 		// 分发初始化完成事件
 		this.viewerReady.emit({
 			viewer: this.viewer,
@@ -261,6 +268,19 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		this.getPositionActionHandler.setInputAction(() => {
 			this.mousePosition.height = Math.ceil(this.viewer.camera.positionCartographic.height);
 		}, ScreenSpaceEventType.WHEEL);
+	}
+
+	/**
+	 * 设置改变鼠标图标的事件
+	 */
+	setChangeCurAction() {
+		this.changeCurActionHandler = new ScreenSpaceEventHandler(this.scene.canvas);
+		this.changeCurActionHandler.setInputAction(() => {
+			this.globeHasPan = true;
+		}, ScreenSpaceEventType.LEFT_DOWN);
+		this.changeCurActionHandler.setInputAction(() => {
+			this.globeHasPan = false;
+		}, ScreenSpaceEventType.LEFT_UP);
 	}
 
 	/**
@@ -350,5 +370,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			clearTimeout(id);
 			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
 		});
+	}
+
+	toggleGlobeHasPan(e: MouseEvent) {
+		console.log(e);
 	}
 }

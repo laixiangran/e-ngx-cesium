@@ -45,7 +45,7 @@ gulp.task('prepublish', function (cb) {
 
 gulp.task('copy:components', function () {
 	return gulp.src([config.aot + '/components/**/*.*'])
-		.pipe(gulp.dest(config.dest));
+		.pipe(gulp.dest(config.dest + '/components'));
 });
 
 gulp.task('replace', ['copy:components'], function () {

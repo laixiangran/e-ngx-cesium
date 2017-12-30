@@ -8,6 +8,7 @@ import { ModeSwitchComponent } from './pages/mode-switch/mode-switch.component';
 import { DropdownModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { UnderGroundComponent } from './pages/under-ground/under-ground.component';
+import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
 
 @NgModule({
 	imports: [
@@ -21,7 +22,8 @@ import { UnderGroundComponent } from './pages/under-ground/under-ground.componen
 		SceneComponent,
 		RollerShuttersComponent,
 		ModeSwitchComponent,
-		UnderGroundComponent
+		UnderGroundComponent,
+		RenderEffectComponent
 	]
 })
 export class SceneModule {}

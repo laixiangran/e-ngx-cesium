@@ -60,6 +60,11 @@ export class FrameComponent {
 						url: '/frame/scene/underGround',
 						icon: 'fa fa-map',
 						label: '地下模式'
+					},
+					{
+						url: '/frame/scene/renderEffect',
+						icon: 'fa fa-map',
+						label: '场景效果'
 					}
 				]
 			}

@@ -6,11 +6,11 @@
 (function (root, factory) {
     'use strict';
     /*jshint sub:true*/
-    
+
     if (typeof define === 'function' && define.amd) {
         define([], factory);
     }
-    
+
     Cesium['viewerCesiumNavigationMixin'] = factory();
 }(typeof window !== 'undefined' ? window : typeof self !== 'undefined' ? self : this, function () {
 
@@ -662,7 +662,7 @@ function(a,b){"use strict";
    * @param {boolean} propertyNamesOrSettings.deep Use deep track.
    * @param {array.<string>} propertyNamesOrSettings.fields Array of property names to wrap.
    * todo: @param {array.<string>} propertyNamesOrSettings.exclude Array of exclude property names to wrap.
-   * todo: @param {function(string, *):boolean} propertyNamesOrSettings.filter Function to filter property 
+   * todo: @param {function(string, *):boolean} propertyNamesOrSettings.filter Function to filter property
    *   names to wrap. A function that takes ... params
    * @return {object}
    */
@@ -1044,7 +1044,7 @@ define('ViewModels/DistanceLegendViewModel',[
 
         this.distanceLabel = undefined;
         this.barWidth = undefined;
-        
+
         this.enableDistanceLegend =  (defined(options.enableDistanceLegend))?options.enableDistanceLegend:true;
 
         Knockout.track(this, ['distanceLabel', 'barWidth']);
@@ -1873,7 +1873,7 @@ define('ViewModels/NavigationViewModel',[
     NavigationViewModel.prototype.show = function(container) {
         var testing;
         if (this.enableZoomControls && this.enableCompass) {
-            testing = '<div class="compass" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" style="cursor: auto;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
@@ -1893,7 +1893,7 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (!this.enableZoomControls && this.enableCompass) {
-            testing = '<div class="compass" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" style="cursor: auto;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
@@ -1913,7 +1913,7 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (this.enableZoomControls && !this.enableCompass) {
-            testing = '<div class="compass"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" style="cursor: auto;"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
@@ -1933,7 +1933,7 @@ define('ViewModels/NavigationViewModel',[
                 ' <!-- /ko -->' +
                 '</div>';
         } else if (!this.enableZoomControls && !this.enableCompass) {
-            testing = '<div class="compass"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
+            testing = '<div class="compass" style="cursor: auto;"  style="display: none;" title="拖动外部环：旋转视图。拖动内部陀螺仪：自由轨道。双击：重置视图。提示：你也可以通过按住CTRL键并拖动地图来自由运行轨道。" data-bind="visible: showCompass, event: { mousedown: handleMouseDown, dblclick: handleDoubleClick }">' +
                 '<div class="compass-outer-ring-background"></div>' +
                 ' <div class="compass-rotation-marker" data-bind="visible: isOrbiting, style: { transform: \'rotate(-\' + orbitCursorAngle + \'rad)\', \'-webkit-transform\': \'rotate(-\' + orbitCursorAngle + \'rad)\', opacity: orbitCursorOpacity }, cesiumSvgPath: { path: svgCompassRotationMarker, width: 145, height: 145 }"></div>' +
                 ' <div class="compass-outer-ring" title="单击并拖动以旋转相机" data-bind="style: { transform: \'rotate(-\' + heading + \'rad)\', \'-webkit-transform\': \'rotate(-\' + heading + \'rad)\' }, cesiumSvgPath: { path: svgCompassOuterRing, width: 145, height: 145 }"></div>' +
@@ -2441,10 +2441,10 @@ define('CesiumNavigation',[
         this.terria.afterWidgetChanged = new CesiumEvent();
         this.terria.beforeWidgetChanged = new CesiumEvent();
         this.container = container;
-        
+
         //this.navigationDiv.setAttribute("id", "navigationDiv");
-        
-           
+
+
           // Register custom Knockout.js bindings.  If you're not using the TerriaJS user interface, you can remove this.
         registerKnockoutBindings();
 
@@ -2459,9 +2459,9 @@ define('CesiumNavigation',[
                 mapElement: container,
                 enableDistanceLegend: true
             });
-           
+
         }
-     
+
 
         if ((!defined(this.terria.options.enableZoomControls) || this.terria.options.enableZoomControls) && (!defined(this.terria.options.enableCompass) || this.terria.options.enableCompass))
         {
@@ -2624,7 +2624,7 @@ define('viewerCesiumNavigationMixin',[
 // actual code -->
 
     /*global define,require,self,Cesium*/
-    
+
     define('Cesium/Core/defined', function() { return Cesium["defined"]; });
 define('Cesium/Core/defineProperties', function() { return Cesium["defineProperties"]; });
 define('Cesium/Core/defaultValue', function() { return Cesium["defaultValue"]; });
@@ -2649,6 +2649,6 @@ define('Cesium/Core/HeadingPitchRange', function() { return Cesium["HeadingPitch
 define('Cesium/Scene/Camera', function() { return Cesium["Camera"]; });
 define('Cesium/Core/Rectangle', function() { return Cesium["Rectangle"]; });
 define('Cesium/Core/IntersectionTests', function() { return Cesium["IntersectionTests"]; });
-    
+
     return require('viewerCesiumNavigationMixin');
 }));

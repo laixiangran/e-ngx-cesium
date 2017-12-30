@@ -6,7 +6,7 @@ html, body {
     overflow: hidden;
 }
 
-div, p, h1, h2, h3, h4, h5, h6 {
+div, p, h1, h2, h3, h4, h5, h6, ul, li {
     margin: 0;
     padding: 0;
 }
@@ -33,10 +33,6 @@ div, p, h1, h2, h3, h4, h5, h6 {
 .readme-container {
     padding-left: 10px;
     width: 100%;
-
-    h3 {
-        margin: 5px 0;
-    }
 
     p {
         padding-left: 20px;
