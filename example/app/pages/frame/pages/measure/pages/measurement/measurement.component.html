@@ -1,0 +1,20 @@
+<div class="globe-container">
+	<e-ngx-cesium [viewerOptions]="viewerOptions"
+	              (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+	<div class="server-select">
+		<button pButton type="button" class="ui-button-success" label="测距" (click)="rangeFinding()"></button>
+		<button pButton type="button" class="ui-button-success" label="测面" (click)="rangeFinding()"></button>
+		<button pButton type="button" class="ui-button-success" label="测高" (click)="rangeFinding()"></button>
+		<button pButton type="button" class="ui-button-danger" label="清除" (click)="clear()"></button>
+		<div style="margin-top: 10px;">
+			<p-dropdown [options]="modes" [(ngModel)]="selectedMode" (onChange)="modeChange($event)"></p-dropdown>
+		</div>
+	</div>
+</div>
+<div class="readme-container">
+	<h3>描述</h3>
+	<p>
+		点击对应按钮开启测量功能。左键添加点，右键结束测量。
+	</p>
+</div>

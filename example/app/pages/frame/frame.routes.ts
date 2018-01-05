@@ -16,6 +16,10 @@ const frameRoutes: Routes = [
 				loadChildren: './pages/scene/scene.module#SceneModule',
 			},
 			{
+				path: 'measure',
+				loadChildren: './pages/measure/measure.module#MeasureModule',
+			},
+			{
 				path: '',
 				redirectTo: 'onlineMap',
 				pathMatch: 'full'

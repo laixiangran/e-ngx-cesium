@@ -72,6 +72,18 @@ export class FrameComponent {
 						label: '位置信息'
 					}
 				]
+			},
+			{
+				url: '/frame/measure',
+				icon: 'fa fa-magic',
+				label: '量算',
+				children: [
+					{
+						url: '/frame/measure/measurement',
+						icon: 'fa fa-magic',
+						label: '测量'
+					}
+				]
 			}
 		];
 	}
