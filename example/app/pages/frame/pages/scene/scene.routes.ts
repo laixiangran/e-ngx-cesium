@@ -5,6 +5,7 @@ import { RollerShuttersComponent } from './pages/roller-shutters/roller-shutters
 import { ModeSwitchComponent } from './pages/mode-switch/mode-switch.component';
 import { UnderGroundComponent } from './pages/under-ground/under-ground.component';
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
+import { PositionInfoComponent } from './pages/position-info/position-info.component';
 
 const SceneRoutes: Routes = [
 	{
@@ -26,6 +27,10 @@ const SceneRoutes: Routes = [
 			{
 				path: 'renderEffect',
 				component: RenderEffectComponent
+			},
+			{
+				path: 'positionInfo',
+				component: PositionInfoComponent
 			},
 			{
 				path: '',

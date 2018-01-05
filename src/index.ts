@@ -4,7 +4,7 @@
  */
 
 export { ENgxCesiumModule } from './e-ngx-cesium.module';
-export { ENgxCesiumComponent, CurrentPosition } from './e-ngx-cesium.component';
+export { ENgxCesiumComponent, CurrentPosition, CurrentExtent, Longlat } from './e-ngx-cesium.component';
 export { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
 export { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 export { GaodeImageryProvider } from './imageryProvider/gaode/GaodeImageryProvider';

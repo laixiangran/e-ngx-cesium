@@ -9,6 +9,7 @@ import { DropdownModule } from 'primeng/primeng';
 import { FormsModule } from '@angular/forms';
 import { UnderGroundComponent } from './pages/under-ground/under-ground.component';
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
+import { PositionInfoComponent } from './pages/position-info/position-info.component';
 
 @NgModule({
 	imports: [
@@ -23,7 +24,8 @@ import { RenderEffectComponent } from './pages/render-effect/render-effect.compo
 		RollerShuttersComponent,
 		ModeSwitchComponent,
 		UnderGroundComponent,
-		RenderEffectComponent
+		RenderEffectComponent,
+		PositionInfoComponent
 	]
 })
 export class SceneModule {}

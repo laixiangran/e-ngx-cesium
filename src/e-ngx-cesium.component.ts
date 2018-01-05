@@ -2,6 +2,8 @@
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import * as _ from 'lodash';
+import { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
+import { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
@@ -17,18 +19,31 @@ import Camera = Cesium.Camera;
 import Rectangle = Cesium.Rectangle;
 import defined = Cesium.defined;
 import DefaultProxy = Cesium.DefaultProxy;
-import { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
-import { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 import ImageryLayer = Cesium.ImageryLayer;
 import ImageryLayerCollection = Cesium.ImageryLayerCollection;
 import ImagerySplitDirection = Cesium.ImagerySplitDirection;
 import ImageryProvider = Cesium.ImageryProvider;
+import Cartesian3 = Cesium.Cartesian3;
+import SceneTransforms = Cesium.SceneTransforms;
 
 export interface CurrentPosition {
 	long: number; // 经度
 	lat: number; // 纬度
 	height: number; // 相机高度
 	elevation: number; // 海拔
+}
+
+export interface Longlat {
+	longitude: number,
+	latitude: number,
+	height: number
+}
+
+export interface CurrentExtent {
+	xmin: number,
+	ymin: number,
+	xmax: number,
+	ymax: number
 }
 
 export class OpenStreetMapNominatimGeocoder {
@@ -372,7 +387,120 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		});
 	}
 
-	toggleGlobeHasPan(e: MouseEvent) {
-		console.log(e);
+	/**
+	 * 获取高程值（单位：米）
+	 * @param {Cesium.Cartographic} cartographic
+	 * @param {Cesium.Globe} globe
+	 * @returns {number}
+	 */
+	getElevation(cartographic: Cartographic, globe: Globe): number {
+		return globe.getHeight(cartographic)
+	}
+
+	/**
+	 * 获取相机高度（单位：米）
+	 * @param {Cesium.Camera} camera
+	 * @returns {number}
+	 */
+	getCameraHeight(camera: Camera): number {
+		return camera.positionCartographic.height
+	}
+
+	/**
+	 * 屏幕坐标转世界坐标（单位：米）
+	 * @param {Cesium.Cartesian2} windowPosition
+	 * @param {Cesium.Viewer} viewer
+	 * @returns {Cesium.Cartesian3}
+	 */
+	window2cartesian(windowPosition: Cartesian2, viewer: Viewer): Cartesian3 {
+		// return viewer.scene.globe.pick(viewer.camera.getPickRay(screenPoint), viewer.scene); // 只适用于3D模式
+		return viewer.camera.pickEllipsoid(windowPosition, viewer.scene.globe.ellipsoid);
+	}
+
+	/**
+	 * 世界坐标转地理坐标（单位：弧度）
+	 * @param {Cesium.Cartesian3} cartesian
+	 * @returns {Cesium.Cartographic}
+	 */
+	cartesian2cartographic(cartesian: Cartesian3): Cartographic {
+		// return viewer.scene.globe.ellipsoid.cartesianToCartographic(worldPoint);
+		return Cartographic.fromCartesian(cartesian);
+	}
+
+	/**
+	 * 世界坐标转屏幕坐标（单位：像素）
+	 * @param {Cesium.Cartesian3} cartesian
+	 * @param {Cesium.Scene} scene
+	 * @returns {Cesium.Cartesian2}
+	 */
+	cartesian2window(cartesian: Cartesian3, scene: Scene): Cartesian2 {
+		return SceneTransforms.wgs84ToWindowCoordinates(scene, cartesian)
+	}
+
+	/**
+	 * 地理坐标（弧度）转经纬度坐标（单位：角度）
+	 * @param {Cesium.Cartographic} cartographic
+	 * @returns {Longlat}
+	 */
+	cartographic2longlat(cartographic: Cartographic): Longlat {
+		return {
+			longitude: Cesium.Math.toDegrees(cartographic.longitude),
+			latitude: Cesium.Math.toDegrees(cartographic.latitude),
+			height: Cesium.Math.toDegrees(cartographic.height)
+		}
+	}
+
+	/**
+	 * 地理坐标（弧度）转世界坐标（单位：米）
+	 * @param {Cesium.Cartographic} cartographic
+	 * @param {Cesium.Ellipsoid} ellipsoid
+	 * @returns {Cesium.Cartesian3}
+	 */
+	cartographic2cartesian(cartographic: Cartographic, ellipsoid: Ellipsoid): Cartesian3 {
+		return ellipsoid.cartographicToCartesian(cartographic);
+	}
+
+	/**
+	 * 经纬度坐标转地理坐标（单位：弧度）
+	 * @param {Longlat} longlat
+	 * @returns {Cesium.Cartographic}
+	 */
+	longlat2cartographic(longlat: Longlat): Cartographic {
+		return Cartographic.fromDegrees(longlat.longitude, longlat.latitude, longlat.height);
+	}
+
+	/**
+	 * 经纬度坐标转世界坐标（单位：米）
+	 * @param {Longlat} longlat
+	 * @param {Cesium.Ellipsoid} ellipsoid
+	 * @returns {Cesium.Cartesian3}
+	 */
+	longlat2cartesian(longlat: Longlat, ellipsoid: Ellipsoid): Cartesian3 {
+		return Cartesian3.fromDegrees(longlat.longitude, longlat.latitude, longlat.height, ellipsoid);
+	}
+
+	/**
+	 * 获取当前视口范围
+	 * @param {Cesium.Viewer} viewer
+	 * @returns {CurrentExtent}
+	 */
+	getCurrentExtent(viewer: Viewer): CurrentExtent {
+		viewer.trackedEntity = null;
+		const pt1: Cartesian2 = new Cartesian2(0, 0);
+		const pt2: Cartesian2 = new Cartesian2(viewer.canvas.width, viewer.canvas.height);
+		const pick1: Cartesian3 = this.window2cartesian(pt1, viewer);
+		const pick2: Cartesian3 = this.window2cartesian(pt2, viewer);
+		if (pick1 && pick2) {
+			const geoPt1: Cartographic = this.cartesian2cartographic(pick1);
+			const geoPt2: Cartographic = this.cartesian2cartographic(pick2);
+			const point1: Longlat = this.cartographic2longlat(geoPt1);
+			const point2: Longlat = this.cartographic2longlat(geoPt2);
+			return {
+				xmin: point1.longitude,
+				ymin: point2.latitude,
+				xmax: point2.longitude,
+				ymax: point1.latitude
+			};
+		}
 	}
 }

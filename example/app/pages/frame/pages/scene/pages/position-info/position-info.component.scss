@@ -1,0 +1,20 @@
+.position-info {
+    padding: 10px;
+    width: 250px;
+    background-color: rgba(48, 51, 54, 0.8);
+    color: #FFFFFF;
+    font-size: 14px;
+
+    p {
+        color: #22EE22;
+        padding: 10px;
+
+        &:first-child {
+            text-align: center;
+        }
+
+        span {
+            color: #FFFFFF;
+        }
+    }
+}

@@ -1,0 +1,55 @@
+<div class="globe-container">
+	<e-ngx-cesium #eNgxCesium
+	              [viewerOptions]="viewerOptions"
+	              [enableDistanceLegend]="true"
+	              (viewerReady)="onViewerReady($event)">
+	</e-ngx-cesium>
+	<div class="server-select">
+		<div class="position-info">
+			<p>
+				<span>--在地球上移动鼠标获取位置信息--</span>
+			</p>
+			<p *ngIf="windowPosition">
+				<span>屏幕坐标（像素）：</span><br>
+				x：{{windowPosition.x}}<br>
+				y：{{windowPosition.y}}
+			</p>
+			<p *ngIf="cartesian">
+				<span>世界坐标（米）：</span><br>
+				x：{{cartesian.x}}<br>
+				y：{{cartesian.y}}<br>
+				z：{{cartesian.z}}
+			</p>
+			<p *ngIf="cartographic">
+				<span>地理坐标（弧度）：</span><br>
+				经度：{{cartographic.longitude}}<br>
+				纬度：{{cartographic.latitude}}<br>
+				高度：{{cartographic.height}}
+			</p>
+			<p *ngIf="longlat">
+				<span>经纬度坐标（角度）：</span><br>
+				经度：{{longlat.longitude}}<br>
+				纬度：{{longlat.latitude}}<br>
+				高度：{{longlat.height}}
+			</p>
+			<p *ngIf="height">
+				<span>当前点高度（米）：</span><br>
+				高程：{{height.elevation}}<br>
+				相机高度：{{height.cameraHeight}}
+			</p>
+			<p *ngIf="currentExtent">
+				<span>当前视口范围（角度）：</span><br>
+				xmin：{{currentExtent.xmin}}<br>
+				ymin：{{currentExtent.ymin}}<br>
+				xmax：{{currentExtent.xmax}}<br>
+				ymax：{{currentExtent.ymax}}
+			</p>
+		</div>
+	</div>
+</div>
+<div class="readme-container">
+	<h3>描述</h3>
+	<p>
+		在地球上移动获取当前点的屏幕坐标、世界坐标、地理坐标（弧度）、经纬度坐标。
+	</p>
+</div>

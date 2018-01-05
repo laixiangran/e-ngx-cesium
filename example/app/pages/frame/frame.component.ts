@@ -65,6 +65,11 @@ export class FrameComponent {
 						url: '/frame/scene/renderEffect',
 						icon: 'fa fa-map',
 						label: '场景效果'
+					},
+					{
+						url: '/frame/scene/positionInfo',
+						icon: 'fa fa-map',
+						label: '位置信息'
 					}
 				]
 			}
