@@ -70,6 +70,11 @@ export class FrameComponent {
 						url: '/frame/scene/positionInfo',
 						icon: 'fa fa-map',
 						label: '位置信息'
+					},
+					{
+						url: '/frame/scene/dynamicWater',
+						icon: 'fa fa-map',
+						label: '动态水面'
 					}
 				]
 			},

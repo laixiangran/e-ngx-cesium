@@ -6,6 +6,7 @@ import { ModeSwitchComponent } from './pages/mode-switch/mode-switch.component';
 import { UnderGroundComponent } from './pages/under-ground/under-ground.component';
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
 import { PositionInfoComponent } from './pages/position-info/position-info.component';
+import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
 
 const SceneRoutes: Routes = [
 	{
@@ -31,6 +32,10 @@ const SceneRoutes: Routes = [
 			{
 				path: 'positionInfo',
 				component: PositionInfoComponent
+			},
+			{
+				path: 'dynamicWater',
+				component: DynamicWaterComponent
 			},
 			{
 				path: '',

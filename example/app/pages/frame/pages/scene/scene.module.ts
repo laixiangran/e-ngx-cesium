@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { UnderGroundComponent } from './pages/under-ground/under-ground.component';
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
 import { PositionInfoComponent } from './pages/position-info/position-info.component';
+import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { PositionInfoComponent } from './pages/position-info/position-info.compo
 		ModeSwitchComponent,
 		UnderGroundComponent,
 		RenderEffectComponent,
-		PositionInfoComponent
+		PositionInfoComponent,
+		DynamicWaterComponent
 	]
 })
 export class SceneModule {}
