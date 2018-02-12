@@ -22,6 +22,7 @@ export class DynamicWaterComponent implements OnInit {
 	scene: Scene;
 	globe: Globe;
 	dynamicWaterCollection: PrimitiveCollection;
+	selectedMode: number[];
 
 	constructor() {
 	}
@@ -37,28 +38,10 @@ export class DynamicWaterComponent implements OnInit {
 		this.applyWaterMaterialWorld(this.scene);
 	}
 
-	applyWaterMaterial(geometryInstance: GeometryInstance, waterScene: Scene) {
-		this.dynamicWaterCollection = waterScene.primitives.add(new Primitive({
-			geometryInstances: geometryInstance,
-			appearance: new EllipsoidSurfaceAppearance({
-				aboveGround: false,
-				material: new Material({
-					fabric: {
-						type: 'Water',
-						uniforms: {
-							specularMap: './assets/images/earthspec1k.jpg',
-							normalMap: './assets/images/waterNormals.jpg',
-							frequency: 10000.0,
-							animationSpeed: 0.01,
-							amplitude: 1.0
-						}
-					}
-				})
-			}),
-			show: true
-		}))
-	}
-
+	/**
+	 * 全球加载动态水效果
+	 * @param {Cesium.Scene} waterScene
+	 */
 	applyWaterMaterialWorld(waterScene: Scene) {
 		this.dynamicWaterCollection = waterScene.primitives.add(new Primitive({
 			geometryInstances: new GeometryInstance({
@@ -86,9 +69,39 @@ export class DynamicWaterComponent implements OnInit {
 		}))
 	}
 
-	removeWaterMaterial(waterScene: Scene) {
-		if (this.dynamicWaterCollection) {
-			waterScene.primitives.remove(this.dynamicWaterCollection)
-		}
+	/**
+	 * 指定区域加载动态水效果
+	 * @param {Cesium.GeometryInstance} geometryInstance
+	 * @param {Cesium.Scene} waterScene
+	 */
+	applyWaterMaterial(geometryInstance: GeometryInstance, waterScene: Scene) {
+		this.dynamicWaterCollection = waterScene.primitives.add(new Primitive({
+			geometryInstances: geometryInstance,
+			appearance: new EllipsoidSurfaceAppearance({
+				aboveGround: false,
+				material: new Material({
+					fabric: {
+						type: 'Water',
+						uniforms: {
+							specularMap: './assets/images/earthspec1k.jpg',
+							normalMap: './assets/images/waterNormals.jpg',
+							frequency: 10000.0,
+							animationSpeed: 0.01,
+							amplitude: 1.0
+						}
+					}
+				})
+			}),
+			show: true
+		}))
+	}
+
+	/**
+	 * 移除动态水效果
+	 * @param {Cesium.PrimitiveCollection} dynamicWaterCollection
+	 * @param {Cesium.Scene} waterScene
+	 */
+	removeWaterMaterial(dynamicWaterCollection: PrimitiveCollection, waterScene: Scene) {
+		waterScene.primitives.remove(dynamicWaterCollection)
 	}
 }

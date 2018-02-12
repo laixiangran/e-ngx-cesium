@@ -2,6 +2,9 @@
 	<e-ngx-cesium [viewerOptions]="viewerOptions"
 				  (viewerReady)="onViewerReady($event)">
 	</e-ngx-cesium>
+	<div class="server-select">
+		<p-dropdown [options]="modes" [(ngModel)]="selectedMode" (onChange)="modeChange($event)"></p-dropdown>
+	</div>
 </div>
 <div class="readme-container">
 	<h3>描述</h3>
