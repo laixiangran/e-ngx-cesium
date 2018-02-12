@@ -30,8 +30,7 @@
 			],
 			"scripts": [
 				"../node_modules/cesium/Build/Cesium/Cesium.js",
-				"../src/components/navigation/viewerCesiumNavigationMixin.js",
-				"./assets/scripts/WaterMaterialHelper/WaterMaterialHelper.js"
+				"../src/components/navigation/viewerCesiumNavigationMixin.js"
 			],
 			"environmentSource": "environments/environment.ts",
 			"environments": {
