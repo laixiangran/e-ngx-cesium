@@ -1,77 +1,78 @@
 {
-  "name": "e-ngx-cesium",
-  "version": "1.7.1",
-  "description": "基于Angular的三维地球组件，依赖三维框架cesium",
-  "keywords": [
-    "angular",
-    "cesium",
-    "e-ngx-cesium",
-    "laixiangran"
-  ],
-  "homepage": "https://github.com/laixiangran/e-ngx-cesium#readme",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/laixiangran/e-ngx-cesium.git"
-  },
-  "author": {
-    "name": "赖祥燃",
-    "email": "laixiangran@163.com",
-    "bolg": "http://www.cnblogs.com/laixiangran",
-    "homepage": "http://www.laixiangran.cn"
-  },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/laixiangran/e-ngx-cesium/issues"
-  },
-  "scripts": {
-    "release": "gulp prepublish && npm run ngc && gulp replace && npm publish",
-    "ngc": "ngc",
-    "start": "ng serve -o --proxy-config proxy.config.json",
-    "build-test": "ng build --prod --env=test --aot",
-    "build-prod": "ng build --prod --env=prod --aot"
-  },
-  "module": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "dependencies": {
-    "@turf/turf": "^5.1.5",
-    "cesium": "^1.40.0",
-    "cesium-typings": "^1.40.9",
-    "font-awesome": "^4.7.0",
-    "lodash": "^4.17.4"
-  },
-  "devDependencies": {
-    "@angular/cli": "^1.2.0",
-    "@angular/common": "^4.0.0",
-    "@angular/compiler": "^4.0.0",
-    "@angular/compiler-cli": "^4.0.0",
-    "@angular/core": "^4.0.0",
-    "@angular/forms": "^4.0.0",
-    "@angular/http": "^4.0.0",
-    "@angular/platform-browser": "^4.0.0",
-    "@angular/platform-browser-dynamic": "^4.0.0",
-    "@angular/router": "^4.0.0",
-    "@angular/animations": "^4.0.0",
-    "@types/node": "^6.0.60",
-    "classlist.js": "^1.1.20150312",
-    "codelyzer": "~3.0.1",
-    "core-js": "^2.4.1",
-    "del": "^2.2.2",
-    "gulp": "^3.9.1",
-    "gulp-clean": "^0.3.2",
-    "gulp-if": "^2.0.2",
-    "gulp-inline-ng2-template": "^4.0.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.6.1",
-    "gulp-sass": "^3.1.0",
-    "intl": "^1.2.5",
-    "primeng": "^4.3.0",
-    "run-sequence": "^1.2.2",
-    "rxjs": "^5.1.0",
-    "stylelint": "^7.12.0",
-    "stylelint-scss": "^1.4.4",
-    "tslint": "~5.3.2",
-    "typescript": "~2.3.3",
-    "web-animations-js": "^2.2.5",
-    "zone.js": "^0.8.4"
-  }
+	"name": "e-ngx-cesium",
+	"version": "5.0.0",
+	"description": "基于Angular的三维地球组件，依赖三维框架cesium",
+	"keywords": [
+		"angular",
+		"cesium",
+		"e-ngx-cesium",
+		"laixiangran"
+	],
+	"homepage": "https://github.com/laixiangran/e-ngx-cesium#readme",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/laixiangran/e-ngx-cesium.git"
+	},
+	"author": {
+		"name": "赖祥燃",
+		"email": "laixiangran@163.com",
+		"bolg": "http://www.cnblogs.com/laixiangran",
+		"homepage": "http://www.laixiangran.cn"
+	},
+	"license": "MIT",
+	"bugs": {
+		"url": "https://github.com/laixiangran/e-ngx-cesium/issues"
+	},
+	"scripts": {
+		"release": "gulp prepublish && npm run ngc && gulp replace && npm publish",
+		"ngc": "ngc",
+		"start": "ng serve -o --proxy-config proxy.config.json",
+		"build-test": "ng build --prod --env=test --aot",
+		"build-prod": "ng build --prod --env=prod --aot"
+	},
+	"module": "dist/index.js",
+	"typings": "dist/index.d.ts",
+	"dependencies": {
+		"@turf/turf": "^5.1.5",
+		"cesium": "^1.40.0",
+		"cesium-typings": "^1.40.9",
+		"font-awesome": "^4.7.0",
+		"lodash": "^4.17.4"
+	},
+	"devDependencies": {
+		"@angular/core": "^5.0.0",
+		"@angular/common": "^5.0.0",
+		"@angular/compiler": "^5.0.0",
+		"@angular/forms": "^5.0.0",
+		"@angular/http": "^5.0.0",
+		"@angular/platform-browser": "^5.0.0",
+		"@angular/platform-browser-dynamic": "^5.0.0",
+		"@angular/router": "^5.0.0",
+		"@angular/compiler-cli": "^5.0.0",
+		"@angular/animations": "^5.0.0",
+		"@angular/cli": "^1.5.0",
+		"rxjs": "^5.5.0",
+		"zone.js": "^0.8.14",
+		"codelyzer": "^4.0.1",
+		"stylelint": "^8.2.0",
+		"stylelint-scss": "^2.1.0",
+		"ts-node": "^3.2.0",
+		"tslint": "^5.7.0",
+		"typescript": "2.4.2",
+		"@types/node": "^6.0.60",
+		"classlist.js": "^1.1.20150312",
+		"core-js": "^2.4.1",
+		"del": "^2.2.2",
+		"gulp": "^3.9.1",
+		"gulp-clean": "^0.3.2",
+		"gulp-if": "^2.0.2",
+		"gulp-inline-ng2-template": "^4.0.0",
+		"gulp-rename": "^1.2.2",
+		"gulp-replace": "^0.6.1",
+		"gulp-sass": "^3.1.0",
+		"intl": "^1.2.5",
+		"primeng": "^4.3.0",
+		"run-sequence": "^1.2.2",
+		"web-animations-js": "^2.2.5"
+	}
 }
