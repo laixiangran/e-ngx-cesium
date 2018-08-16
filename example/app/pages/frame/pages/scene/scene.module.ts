@@ -11,6 +11,7 @@ import { UnderGroundComponent } from './pages/under-ground/under-ground.componen
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
 import { PositionInfoComponent } from './pages/position-info/position-info.component';
 import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
+import { CZMLComponent } from './pages/czml/czml.component';
 
 @NgModule({
 	imports: [
@@ -27,7 +28,8 @@ import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.compo
 		UnderGroundComponent,
 		RenderEffectComponent,
 		PositionInfoComponent,
-		DynamicWaterComponent
+		DynamicWaterComponent,
+		CZMLComponent
 	]
 })
 export class SceneModule {}

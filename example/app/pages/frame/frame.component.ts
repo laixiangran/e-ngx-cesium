@@ -75,6 +75,11 @@ export class FrameComponent {
 						url: '/frame/scene/dynamicWater',
 						icon: 'fa fa-map',
 						label: '动态水面'
+					},
+					{
+						url: '/frame/scene/czml',
+						icon: 'fa fa-map',
+						label: '叠加CZML'
 					}
 				]
 			},

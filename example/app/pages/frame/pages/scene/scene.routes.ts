@@ -7,6 +7,7 @@ import { UnderGroundComponent } from './pages/under-ground/under-ground.componen
 import { RenderEffectComponent } from './pages/render-effect/render-effect.component';
 import { PositionInfoComponent } from './pages/position-info/position-info.component';
 import { DynamicWaterComponent } from './pages/dynamic-water/dynamic-water.component';
+import { CZMLComponent } from './pages/czml/czml.component';
 
 const SceneRoutes: Routes = [
 	{
@@ -36,6 +37,10 @@ const SceneRoutes: Routes = [
 			{
 				path: 'dynamicWater',
 				component: DynamicWaterComponent
+			},
+			{
+				path: 'czml',
+				component: CZMLComponent
 			},
 			{
 				path: '',
