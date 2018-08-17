@@ -6,6 +6,7 @@ import { TdtComponent } from './pages/tdt/tdt.component';
 import { BingComponent } from './pages/bing/bing.component';
 import { ArcgisComponent } from './pages/arcgis/arcgis.component';
 import { GaodeComponent } from './pages/gaode/gaode.component';
+import { GoogleComponent } from './pages/google/google.component';
 
 const OnlineMapRoutes: Routes = [
 	{
@@ -21,16 +22,20 @@ const OnlineMapRoutes: Routes = [
 				component: TdtComponent
 			},
 			{
-				path: 'bing',
-				component: BingComponent
+				path: 'google',
+				component: GoogleComponent
+			},
+			{
+				path: 'gaode',
+				component: GaodeComponent
 			},
 			{
 				path: 'arcgis',
 				component: ArcgisComponent
 			},
 			{
-				path: 'gaode',
-				component: GaodeComponent
+				path: 'bing',
+				component: BingComponent
 			},
 			{
 				path: '',

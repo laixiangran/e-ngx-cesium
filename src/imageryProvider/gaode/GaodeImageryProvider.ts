@@ -19,7 +19,7 @@ export class GaodeImageryProvider extends UrlTemplateImageryProvider {
 				subdomains: ['webrd01', 'webrd02', 'webrd03', 'webrd04'],
 				tilingScheme: new WebMercatorTilingScheme(),
 				maximumLevel: 18,
-				proxy: proxy,
+				proxy: proxy
 			};
 		} else if (mapStyle === GaodeMapsStyle.IMG) {
 			options = {
@@ -27,7 +27,8 @@ export class GaodeImageryProvider extends UrlTemplateImageryProvider {
 				credit: new Credit('高德影像地图服务'),
 				subdomains: ['webst01', 'webst02', 'webst03', 'webst04'],
 				tilingScheme: new WebMercatorTilingScheme(),
-				maximumLevel: 18
+				maximumLevel: 18,
+				proxy: proxy
 			};
 		} else if (mapStyle === GaodeMapsStyle.CIA) {
 			options = {
@@ -35,7 +36,8 @@ export class GaodeImageryProvider extends UrlTemplateImageryProvider {
 				credit: new Credit('高德影像标注服务'),
 				subdomains: ['01', '02', '03', '04'],
 				tilingScheme: new WebMercatorTilingScheme(),
-				maximumLevel: 18
+				maximumLevel: 18,
+				proxy: proxy
 			};
 		}
 		super(options);

@@ -9,3 +9,5 @@ export { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImag
 export { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 export { GaodeImageryProvider } from './imageryProvider/gaode/GaodeImageryProvider';
 export { GaodeMapsStyle } from './imageryProvider/gaode/GaodeMapsStyle';
+export { GoogleImageryProvider } from './imageryProvider/google/GoogleImageryProvider';
+export { GoogleMapsStyle } from './imageryProvider/google/GoogleMapsStyle';

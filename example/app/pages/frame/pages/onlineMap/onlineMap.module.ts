@@ -10,6 +10,7 @@ import { DropdownModule } from 'primeng/primeng';
 import { BingComponent } from './pages/bing/bing.component';
 import { ArcgisComponent } from './pages/arcgis/arcgis.component';
 import { GaodeComponent } from './pages/gaode/gaode.component';
+import { GoogleComponent } from './pages/google/google.component';
 
 @NgModule({
 	imports: [
@@ -25,7 +26,8 @@ import { GaodeComponent } from './pages/gaode/gaode.component';
 		TdtComponent,
 		BingComponent,
 		ArcgisComponent,
-		GaodeComponent
+		GaodeComponent,
+		GoogleComponent
 	]
 })
 export class OnlineMapModule {

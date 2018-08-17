@@ -25,19 +25,24 @@ export class FrameComponent {
 						label: '天地图'
 					},
 					{
+						url: '/frame/onlineMap/google',
+						icon: 'fa fa-globe',
+						label: '谷歌地图'
+					},
+					{
 						url: '/frame/onlineMap/gaode',
 						icon: 'fa fa-globe',
 						label: '高德地图'
 					},
 					{
-						url: '/frame/onlineMap/bing',
-						icon: 'fa fa-globe',
-						label: 'BingMap'
-					},
-					{
 						url: '/frame/onlineMap/arcgis',
 						icon: 'fa fa-globe',
 						label: 'ArcGIS'
+					},
+					{
+						url: '/frame/onlineMap/bing',
+						icon: 'fa fa-globe',
+						label: 'BingMap'
 					}
 				]
 			},
