@@ -11,11 +11,11 @@ import { GoogleMapsStyle } from './GoogleMapsStyle';
 export class GoogleImageryProvider extends UrlTemplateImageryProvider {
 	constructor(mapStyle: string, proxy?: DefaultProxy) {
 		super({
-			url: `http://{s}.google.cn/vt/lyrs=${mapStyle}&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}`,
+			url: `http://{s}.google.cn/vt/lyrs=${mapStyle}&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}&s=Gali`,
 			credit: new Credit(`谷歌${GoogleMapsStyle.Credit[mapStyle]}`),
-			subdomains: ['mt1', 'mt2', 'mt3'],
+			subdomains: ['mt0', 'mt1', 'mt2', 'mt3'],
 			tilingScheme: new WebMercatorTilingScheme(),
-			maximumLevel: 18,
+			maximumLevel: 19,
 			proxy: proxy
 		});
 	}
