@@ -1,3 +1,7 @@
+# 6.1.0（2018-08-19）
+
+- 升级 cesium 到 1.48.0
+
 # 6.0.0（2018-08-19）
 
 - GoogleImageryProvider 修改为 GoogleMapsImageryProvider
