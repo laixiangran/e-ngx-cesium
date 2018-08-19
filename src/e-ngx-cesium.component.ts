@@ -2,8 +2,6 @@
 
 import { Component, OnInit, ElementRef, ViewChild, OnDestroy, Input, Output, EventEmitter, Renderer2 } from '@angular/core';
 import * as _ from 'lodash';
-import { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
-import { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
@@ -25,6 +23,8 @@ import ImagerySplitDirection = Cesium.ImagerySplitDirection;
 import ImageryProvider = Cesium.ImageryProvider;
 import Cartesian3 = Cesium.Cartesian3;
 import SceneTransforms = Cesium.SceneTransforms;
+import { GoogleMapsStyle } from './imageryProvider/google/GoogleMapsStyle';
+import { GoogleMapsImageryProvider } from './imageryProvider/google/GoogleMapsImageryProvider';
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -176,11 +176,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	init() {
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
-		let tiandituCIAWImageryProvider: TiandituImageryProvider;
-		if (!(this.viewerOptions && this.viewerOptions.imageryProvider)) {
-			tiandituCIAWImageryProvider = new TiandituImageryProvider(TiandituMapsStyle.CIA_W);
-		}
-		this.defaultViewerOptions.imageryProvider = new TiandituImageryProvider(TiandituMapsStyle.IMG_W);
+		this.defaultViewerOptions.imageryProvider = new GoogleMapsImageryProvider(GoogleMapsStyle.Y);
 		this.defaultViewerOptions.terrainProvider = new Cesium.CesiumTerrainProvider({
 			url: 'https://assets.agi.com/stk-terrain/world',
 			requestWaterMask: true,
@@ -212,11 +208,6 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			enableDistanceLegend: this.enableDistanceLegend,
 			enableCompassOuterRing: this.enableCompass
 		});
-
-		// 添加天地图影像标注
-		if (tiandituCIAWImageryProvider) {
-			this.viewer.imageryLayers.addImageryProvider(tiandituCIAWImageryProvider);
-		}
 
 		if (this.enablePosition) {
 			this.setGetPositionAction();

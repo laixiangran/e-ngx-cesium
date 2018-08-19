@@ -4,7 +4,7 @@ import ViewerOptions = Cesium.ViewerOptions;
 import Globe = Cesium.Globe;
 import Scene = Cesium.Scene;
 import { SelectItem } from 'primeng/primeng';
-import { TiandituImageryProvider, TiandituMapsStyle } from '../../../../../../../../src';
+import { TiandituMapsImageryProvider, TiandituMapsStyle } from '../../../../../../../../src';
 
 @Component({
 	templateUrl: './tdt.component.html',
@@ -16,30 +16,30 @@ export class TdtComponent {
 	scene: Scene;
 	globe: Globe;
 	servers: SelectItem[];
-	selectedServer: TiandituImageryProvider;
+	selectedServer: TiandituMapsImageryProvider;
 
 	constructor() {
 		this.viewerOptions = {
-			imageryProvider: new TiandituImageryProvider(TiandituMapsStyle.IMG_W)
+			imageryProvider: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W)
 		};
 		this.servers = [
 			{label: '--选择服务类型--', value: null},
-			{label: '全球影像地图服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.IMG_C)},
-			{label: '全球影像地图服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.IMG_W)},
-			{label: '全球地形晕渲服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.TER_C)},
-			{label: '全球地形晕渲服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.TER_W)},
-			{label: '全球矢量地图服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.VEC_C)},
-			{label: '全球矢量地图服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.VEC_W)},
-			{label: '全球影像中文注记服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CIA_C)},
-			{label: '全球影像中文注记服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CIA_W)},
-			{label: '全球影像英文注记服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.EIA_C)},
-			{label: '全球影像英文注记服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.EIA_W)},
-			{label: '全球地形中文注记服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CTA_C)},
-			{label: '全球地形中文注记服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CTA_W)},
-			{label: '全球矢量中文标注服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CVA_C)},
-			{label: '全球矢量中文标注服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.CVA_W)},
-			{label: '全球矢量英文标注服务（经纬度投影）', value: new TiandituImageryProvider(TiandituMapsStyle.EVA_C)},
-			{label: '全球矢量英文标注服务（墨卡托投影）', value: new TiandituImageryProvider(TiandituMapsStyle.EVA_W)}
+			{label: '全球影像地图服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_C)},
+			{label: '全球影像地图服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W)},
+			{label: '全球地形晕渲服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.TER_C)},
+			{label: '全球地形晕渲服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.TER_W)},
+			{label: '全球矢量地图服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.VEC_C)},
+			{label: '全球矢量地图服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.VEC_W)},
+			{label: '全球影像中文注记服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CIA_C)},
+			{label: '全球影像中文注记服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CIA_W)},
+			{label: '全球影像英文注记服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.EIA_C)},
+			{label: '全球影像英文注记服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.EIA_W)},
+			{label: '全球地形中文注记服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CTA_C)},
+			{label: '全球地形中文注记服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CTA_W)},
+			{label: '全球矢量中文标注服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CVA_C)},
+			{label: '全球矢量中文标注服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.CVA_W)},
+			{label: '全球矢量英文标注服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.EVA_C)},
+			{label: '全球矢量英文标注服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.EVA_W)}
 		];
 	}
 
@@ -51,11 +51,11 @@ export class TdtComponent {
 
 	serverChange($event) {
 		this.viewer.imageryLayers.removeAll();
-		let tdtImageryProvider: TiandituImageryProvider;
+		let tdtImageryProvider: TiandituMapsImageryProvider;
 		if ($event.value) {
 			tdtImageryProvider = $event.value;
 		} else {
-			tdtImageryProvider = new TiandituImageryProvider(TiandituMapsStyle.IMG_W);
+			tdtImageryProvider = new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W);
 		}
 		this.viewer.imageryLayers.addImageryProvider(tdtImageryProvider);
 	}

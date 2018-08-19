@@ -2,7 +2,7 @@
 
 基于Angular的三维地球组件，依赖三维框架：[cesium](https://cesiumjs.org/)
 
-影像和标注默认使用天地图服务，地形默认使用STK World Terrain
+影像默认使用谷歌地图服务，地形默认使用STK World Terrain
 
 ![示例图](./example/assets/images/示例图.png)
 
@@ -128,6 +128,14 @@
 - `viewerReady` - Cesium.Viewer创建完成后会触发该事件，参数$event为`{viewer: Cesium.Viewer, scene: Cesium.Scene, globe: Cesium.Globe, ellipsoid: Cesium.Ellipsoid}`
 
 - `sliderChange` - 卷帘对比滑块位置变化事件，参数$event为当前ImageryLayer.splitDirection的值
+
+### Custom ImageryProvider
+
+- GoogleMapsImageryProvider（谷歌）
+
+- GaodeMapsImageryProvider（高德）
+
+- TiandituMapsImageryProvider（天地图）
 
 ## Develop
 

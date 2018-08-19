@@ -8,7 +8,7 @@ import UrlTemplateImageryProvider = Cesium.UrlTemplateImageryProvider;
 import WebMercatorTilingScheme = Cesium.WebMercatorTilingScheme;
 import { GaodeMapsStyle } from './GaodeMapsStyle';
 
-export class GaodeImageryProvider extends UrlTemplateImageryProvider {
+export class GaodeMapsImageryProvider extends UrlTemplateImageryProvider {
 
 	constructor(mapStyle: string, proxy?: DefaultProxy) {
 		let options: any;

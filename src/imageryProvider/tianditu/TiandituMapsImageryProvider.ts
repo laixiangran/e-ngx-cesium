@@ -7,7 +7,7 @@ import WebMapTileServiceImageryProvider = Cesium.WebMapTileServiceImageryProvide
 import Credit = Cesium.Credit;
 import GeographicTilingScheme = Cesium.GeographicTilingScheme;
 
-export class TiandituImageryProvider extends WebMapTileServiceImageryProvider {
+export class TiandituMapsImageryProvider extends WebMapTileServiceImageryProvider {
 
 	constructor(mapStyle: string, proxy?: DefaultProxy) {
 		const layer: string = mapStyle.split('_')[0],

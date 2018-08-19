@@ -1,3 +1,11 @@
+# 6.0.0（2018-08-19）
+
+- GoogleImageryProvider 修改为 GoogleMapsImageryProvider
+
+- GaodeImageryProvider 修改为 GaodeMapsImageryProvider
+
+- TiandituImageryProvider 修改为 TiandituMapsImageryProvider
+
 # 5.1.0（2018-08-17）
 
 - 新增GoogleImageryProvider（谷歌地图服务）

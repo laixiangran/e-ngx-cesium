@@ -5,9 +5,9 @@
 
 export { ENgxCesiumModule } from './e-ngx-cesium.module';
 export { ENgxCesiumComponent, CurrentPosition, CurrentExtent, Longlat } from './e-ngx-cesium.component';
-export { TiandituImageryProvider } from './imageryProvider/tianditu/TiandituImageryProvider';
+export { TiandituMapsImageryProvider } from './imageryProvider/tianditu/TiandituMapsImageryProvider';
 export { TiandituMapsStyle } from './imageryProvider/tianditu/TiandituMapsStyle';
-export { GaodeImageryProvider } from './imageryProvider/gaode/GaodeImageryProvider';
+export { GaodeMapsImageryProvider } from './imageryProvider/gaode/GaodeMapsImageryProvider';
 export { GaodeMapsStyle } from './imageryProvider/gaode/GaodeMapsStyle';
-export { GoogleImageryProvider } from './imageryProvider/google/GoogleImageryProvider';
+export { GoogleMapsImageryProvider } from './imageryProvider/google/GoogleMapsImageryProvider';
 export { GoogleMapsStyle } from './imageryProvider/google/GoogleMapsStyle';

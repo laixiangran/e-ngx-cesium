@@ -3,7 +3,7 @@ import Viewer = Cesium.Viewer;
 import ViewerOptions = Cesium.ViewerOptions;
 import Globe = Cesium.Globe;
 import Scene = Cesium.Scene;
-import { GoogleImageryProvider, GoogleMapsStyle } from '../../../../../../../../src';
+import { GoogleMapsImageryProvider, GoogleMapsStyle } from '../../../../../../../../src';
 import { SelectItem } from 'primeng/primeng';
 
 @Component({
@@ -16,21 +16,21 @@ export class GoogleComponent {
 	scene: Scene;
 	globe: Globe;
 	servers: SelectItem[];
-	selectedServer: GoogleImageryProvider;
+	selectedServer: GoogleMapsImageryProvider;
 
 	constructor() {
 		this.viewerOptions = {
-			imageryProvider: new GoogleImageryProvider(GoogleMapsStyle.Y)
+			imageryProvider: new GoogleMapsImageryProvider(GoogleMapsStyle.Y)
 		};
 		this.servers = [
 			{label: '--选择服务类型--', value: null},
-			{label: '矢量地图服务', value: new GoogleImageryProvider(GoogleMapsStyle.M)},
-			{label: '地形地图服务', value: new GoogleImageryProvider(GoogleMapsStyle.P)},
-			{label: '卫星地图服务', value: new GoogleImageryProvider(GoogleMapsStyle.Y)},
-			{label: '卫星地图服务（不含标注）', value: new GoogleImageryProvider(GoogleMapsStyle.S)},
-			{label: '地形地图服务（不含标注）', value: new GoogleImageryProvider(GoogleMapsStyle.T)},
-			{label: '地图标注服务（亮色系）', value: new GoogleImageryProvider(GoogleMapsStyle.H)},
-			{label: '地图标注服务（暗色系）', value: new GoogleImageryProvider(GoogleMapsStyle.R)}
+			{label: '矢量地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.M)},
+			{label: '地形地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.P)},
+			{label: '卫星地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.Y)},
+			{label: '卫星地图服务（不含标注）', value: new GoogleMapsImageryProvider(GoogleMapsStyle.S)},
+			{label: '地形地图服务（不含标注）', value: new GoogleMapsImageryProvider(GoogleMapsStyle.T)},
+			{label: '地图标注服务（亮色系）', value: new GoogleMapsImageryProvider(GoogleMapsStyle.H)},
+			{label: '地图标注服务（暗色系）', value: new GoogleMapsImageryProvider(GoogleMapsStyle.R)}
 		];
 	}
 
@@ -42,11 +42,11 @@ export class GoogleComponent {
 
 	serverChange($event) {
 		this.viewer.imageryLayers.removeAll();
-		let googleImageryProvider: GoogleImageryProvider;
+		let googleImageryProvider: GoogleMapsImageryProvider;
 		if ($event.value) {
 			googleImageryProvider = $event.value;
 		} else {
-			googleImageryProvider = new GoogleImageryProvider(GoogleMapsStyle.Y);
+			googleImageryProvider = new GoogleMapsImageryProvider(GoogleMapsStyle.Y);
 		}
 		this.viewer.imageryLayers.addImageryProvider(googleImageryProvider);
 	}
