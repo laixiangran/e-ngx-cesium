@@ -20,10 +20,10 @@ export class TdtComponent {
 
 	constructor() {
 		this.viewerOptions = {
-			imageryProvider: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W)
+			imageryProvider: new TiandituMapsImageryProvider()
 		};
 		this.servers = [
-			{label: '--选择服务类型--', value: null},
+			{label: '--选择服务类型--', value: new TiandituMapsImageryProvider()},
 			{label: '全球影像地图服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_C)},
 			{label: '全球影像地图服务（墨卡托投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W)},
 			{label: '全球地形晕渲服务（经纬度投影）', value: new TiandituMapsImageryProvider(TiandituMapsStyle.TER_C)},
@@ -51,13 +51,7 @@ export class TdtComponent {
 
 	serverChange($event) {
 		this.viewer.imageryLayers.removeAll();
-		let tdtImageryProvider: TiandituMapsImageryProvider;
-		if ($event.value) {
-			tdtImageryProvider = $event.value;
-		} else {
-			tdtImageryProvider = new TiandituMapsImageryProvider(TiandituMapsStyle.IMG_W);
-		}
-		this.viewer.imageryLayers.addImageryProvider(tdtImageryProvider);
+		this.viewer.imageryLayers.addImageryProvider($event.value);
 	}
 }
 

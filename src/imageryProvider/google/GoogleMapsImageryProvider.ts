@@ -9,7 +9,7 @@ import WebMercatorTilingScheme = Cesium.WebMercatorTilingScheme;
 import { GoogleMapsStyle } from './GoogleMapsStyle';
 
 export class GoogleMapsImageryProvider extends UrlTemplateImageryProvider {
-	constructor(mapStyle: string, proxy?: DefaultProxy) {
+	constructor(mapStyle: string = GoogleMapsStyle.Y, proxy?: DefaultProxy) {
 		super({
 			url: `http://{s}.google.cn/vt/lyrs=${mapStyle}&hl=zh-CN&gl=cn&x={x}&y={y}&z={z}&s=Gali`,
 			credit: new Credit(`谷歌${GoogleMapsStyle.Credit[mapStyle]}`),

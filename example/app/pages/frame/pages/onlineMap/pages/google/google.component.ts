@@ -20,10 +20,10 @@ export class GoogleComponent {
 
 	constructor() {
 		this.viewerOptions = {
-			imageryProvider: new GoogleMapsImageryProvider(GoogleMapsStyle.Y)
+			imageryProvider: new GoogleMapsImageryProvider()
 		};
 		this.servers = [
-			{label: '--选择服务类型--', value: null},
+			{label: '--选择服务类型--', value: new GoogleMapsImageryProvider()},
 			{label: '矢量地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.M)},
 			{label: '地形地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.P)},
 			{label: '卫星地图服务', value: new GoogleMapsImageryProvider(GoogleMapsStyle.Y)},
@@ -42,13 +42,7 @@ export class GoogleComponent {
 
 	serverChange($event) {
 		this.viewer.imageryLayers.removeAll();
-		let googleImageryProvider: GoogleMapsImageryProvider;
-		if ($event.value) {
-			googleImageryProvider = $event.value;
-		} else {
-			googleImageryProvider = new GoogleMapsImageryProvider(GoogleMapsStyle.Y);
-		}
-		this.viewer.imageryLayers.addImageryProvider(googleImageryProvider);
+		this.viewer.imageryLayers.addImageryProvider($event.value);
 	}
 }
 

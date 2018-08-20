@@ -10,7 +10,7 @@ import { GaodeMapsStyle } from './GaodeMapsStyle';
 
 export class GaodeMapsImageryProvider extends UrlTemplateImageryProvider {
 
-	constructor(mapStyle: string, proxy?: DefaultProxy) {
+	constructor(mapStyle: string = GaodeMapsStyle.IMG, proxy?: DefaultProxy) {
 		let options: any;
 		if (mapStyle === GaodeMapsStyle.VEC) {
 			options = {

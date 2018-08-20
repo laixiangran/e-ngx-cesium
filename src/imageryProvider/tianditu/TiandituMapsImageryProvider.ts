@@ -6,10 +6,11 @@ import DefaultProxy = Cesium.DefaultProxy;
 import WebMapTileServiceImageryProvider = Cesium.WebMapTileServiceImageryProvider;
 import Credit = Cesium.Credit;
 import GeographicTilingScheme = Cesium.GeographicTilingScheme;
+import { TiandituMapsStyle } from './TiandituMapsStyle';
 
 export class TiandituMapsImageryProvider extends WebMapTileServiceImageryProvider {
 
-	constructor(mapStyle: string, proxy?: DefaultProxy) {
+	constructor(mapStyle: string = TiandituMapsStyle.IMG_W, proxy?: DefaultProxy) {
 		const layer: string = mapStyle.split('_')[0],
 			tilematrixset: string = mapStyle.split('_')[1],
 			options: any = {
