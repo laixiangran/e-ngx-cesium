@@ -1,3 +1,7 @@
+# 6.1.2（2018-08-21）
+
+- ViewerOptions.globe 设为 false 时禁用导航插件
+
 # 6.1.1（2018-08-21）
 
 - 修复ViewerOptions.globe 设为 false 时产生的错误

@@ -209,13 +209,15 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 			this.viewer.sceneModePicker.viewModel.tooltipColumbusView = '2.5D';
 		}
 
-		// 导航扩展
-		this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {
-			enableCompass: this.enableCompass,
-			enableZoomControls: this.enableZoomControls,
-			enableDistanceLegend: this.enableDistanceLegend,
-			enableCompassOuterRing: this.enableCompass
-		});
+		// 导航扩展（必须依赖 globe）
+		if (this.globe) {
+			this.viewer.extend(Cesium['viewerCesiumNavigationMixin'], {
+				enableCompass: this.enableCompass,
+				enableZoomControls: this.enableZoomControls,
+				enableDistanceLegend: this.enableDistanceLegend,
+				enableCompassOuterRing: this.enableCompass
+			});
+		}
 
 		if (this.enablePosition) {
 			this.setGetPositionAction();
