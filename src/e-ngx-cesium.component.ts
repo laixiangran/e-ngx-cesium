@@ -25,6 +25,8 @@ import Cartesian3 = Cesium.Cartesian3;
 import SceneTransforms = Cesium.SceneTransforms;
 import { GoogleMapsStyle } from './imageryProvider/google/GoogleMapsStyle';
 import { GoogleMapsImageryProvider } from './imageryProvider/google/GoogleMapsImageryProvider';
+import GeocoderService = Cesium.GeocoderService;
+import GeocoderResult = Cesium.GeocoderResult;
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -46,8 +48,8 @@ export interface CurrentExtent {
 	ymax: number
 }
 
-export class OpenStreetMapNominatimGeocoder {
-	geocode(input: string) {
+export class OpenStreetMapNominatimGeocoder implements GeocoderService {
+	geocode(input: string): Promise<GeocoderResult[]> {
 		const endpoint: string = 'https://nominatim.openstreetmap.org/search?';
 		const query: string = 'format=json&q=' + input;
 		const requestString: string = endpoint + query;
@@ -112,6 +114,12 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	private ellipsoid: Ellipsoid; // 三维场景的椭球体
 	private defaultProxy: DefaultProxy = null;
 	private defaultViewerOptions: ViewerOptions = {
+		imageryProvider: new GoogleMapsImageryProvider(GoogleMapsStyle.Y),
+		terrainProvider: new Cesium.CesiumTerrainProvider({
+			url: 'https://assets.agi.com/stk-terrain/world',
+			requestWaterMask: true,
+			requestVertexNormals: true
+		}),
 		timeline: false,
 		animation: false,
 		baseLayerPicker: false,
@@ -166,7 +174,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		if (this.changeCurActionHandler) {
 			this.changeCurActionHandler.destroy();
 		}
-		this.viewer['cesiumNavigation'].destroy();
+		if (this.viewer['cesiumNavigation']) {
+			this.viewer['cesiumNavigation'].destroy();
+		}
 		this.viewer.destroy();
 	}
 
@@ -176,20 +186,18 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	init() {
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
-		this.defaultViewerOptions.imageryProvider = new GoogleMapsImageryProvider(GoogleMapsStyle.Y);
-		this.defaultViewerOptions.terrainProvider = new Cesium.CesiumTerrainProvider({
-			url: 'https://assets.agi.com/stk-terrain/world',
-			requestWaterMask: true,
-			requestVertexNormals: true
-		});
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
 		if (viewerOptions.geocoder) {
-			viewerOptions.geocoder = new OpenStreetMapNominatimGeocoder();
+			viewerOptions.geocoder = [new OpenStreetMapNominatimGeocoder()];
+		}
+		if (viewerOptions.globe === false) {
+			viewerOptions.imageryProvider = null;
+			viewerOptions.terrainProvider = null;
 		}
 		this.viewer = new Viewer(this.globeContainer, viewerOptions);
 		this.scene = this.viewer.scene;
 		this.globe = this.scene.globe;
-		this.ellipsoid = this.globe.ellipsoid;
+		this.ellipsoid = this.globe && this.globe.ellipsoid;
 		this.viewer.cesiumWidget.creditContainer['style'].display = 'none'; // 隐藏默认的版权信息
 		if (this.viewer.homeButton) {
 			this.viewer.homeButton.viewModel.tooltip = '初始视图';

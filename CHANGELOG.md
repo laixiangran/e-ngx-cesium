@@ -1,3 +1,7 @@
+# 6.1.1（2018-08-21）
+
+- 修复ViewerOptions.globe 设为 false 时产生的错误
+
 # 6.1.0（2018-08-20）
 
 - 自定义的 ImageryProvider 构造函数具有默认加载的图层
