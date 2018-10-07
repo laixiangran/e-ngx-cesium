@@ -190,7 +190,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		if (viewerOptions.geocoder) {
 			viewerOptions.geocoder = [new OpenStreetMapNominatimGeocoder()];
 		}
-		if (!viewerOptions.globe) {
+		if (viewerOptions.globe === false) {
 			viewerOptions.imageryProvider = null;
 			viewerOptions.terrainProvider = null;
 		}
