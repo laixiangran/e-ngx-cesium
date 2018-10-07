@@ -44,7 +44,7 @@
 4. Set `CESIUM_BASE_URL` in main.ts
 
 	```typescript
-    window['CESIUM_BASE_URL'] = '/assets/scripts/cesium'; // 设置cesium请求资源的基本路径
+    window['CESIUM_BASE_URL'] = './assets/scripts/cesium'; // 设置cesium请求资源的基本路径
     // window['CESIUM_BASE_URL']需在应用启动之前设置
     platformBrowserDynamic().bootstrapModule(AppModule);
 	```
