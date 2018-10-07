@@ -34,8 +34,8 @@
   "typings": "dist/index.d.ts",
   "dependencies": {
     "@turf/turf": "^5.1.5",
-    "cesium": "^1.48.0",
-    "cesium-typings": "^1.48.2",
+    "cesium": "^1.50.0",
+    "cesium-typings": "^1.50.0",
     "font-awesome": "^4.7.0",
     "lodash": "^4.17.4"
   },

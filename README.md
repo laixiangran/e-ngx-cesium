@@ -2,8 +2,6 @@
 
 基于Angular的三维地球组件，依赖三维框架：[cesium](https://cesiumjs.org/)
 
-影像默认使用谷歌地图服务，地形默认使用STK World Terrain
-
 ![示例图](./example/assets/images/示例图.png)
 
 **如果该组件出现typescript编译错误，有可能是cesium-typings不是最新的，你可以执行`npm uninstall e-ngx-cesium --save`之后再执行`npm install e-ngx-cesium --save`**

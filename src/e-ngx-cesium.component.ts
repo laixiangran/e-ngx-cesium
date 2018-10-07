@@ -5,6 +5,7 @@ import * as _ from 'lodash';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
+import createWorldTerrain = Cesium.createWorldTerrain;
 import Scene = Cesium.Scene;
 import Ellipsoid = Cesium.Ellipsoid;
 import ScreenSpaceEventHandler = Cesium.ScreenSpaceEventHandler;
@@ -115,10 +116,9 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	private defaultProxy: DefaultProxy = null;
 	private defaultViewerOptions: ViewerOptions = {
 		imageryProvider: new GoogleMapsImageryProvider(GoogleMapsStyle.Y),
-		terrainProvider: new Cesium.CesiumTerrainProvider({
-			url: 'https://assets.agi.com/stk-terrain/world',
-			requestWaterMask: true,
-			requestVertexNormals: true
+		terrainProvider: createWorldTerrain({
+			requestWaterMask : true,
+			requestVertexNormals : true
 		}),
 		timeline: false,
 		animation: false,
