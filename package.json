@@ -27,8 +27,8 @@
     "release": "gulp prepublish && npm run ngc && gulp replace && npm publish",
     "ngc": "ngc",
     "start": "ng serve -o --proxy-config proxy.config.json",
-    "build-test": "ng build --prod --env=test --aot",
-    "build-prod": "ng build --prod --env=prod --aot"
+  	"test": "ng build --prod --env=test --base-href /",
+  	"prod": "ng build --prod --env=prod --base-href /e-ngx-cesium/demo/"
   },
   "module": "dist/index.js",
   "typings": "dist/index.d.ts",
