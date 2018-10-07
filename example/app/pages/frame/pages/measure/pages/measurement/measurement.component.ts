@@ -20,6 +20,7 @@ export class MeasurementComponent implements OnInit {
 	scene: Scene;
 	globe: Globe;
 	modes: SelectItem[];
+	selectedMode: SelectItem;
 
 	constructor() {
 		this.modes = [
