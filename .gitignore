@@ -5,6 +5,7 @@
 /tmp
 /temp
 /aot
+/demo/assets/scripts/cesium
 
 # dependencies
 /node_modules
