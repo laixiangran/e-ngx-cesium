@@ -5,7 +5,6 @@ import * as _ from 'lodash';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import CesiumMath = Cesium.Math;
-import createWorldTerrain = Cesium.createWorldTerrain;
 import Scene = Cesium.Scene;
 import Ellipsoid = Cesium.Ellipsoid;
 import ScreenSpaceEventHandler = Cesium.ScreenSpaceEventHandler;
@@ -28,6 +27,8 @@ import { GoogleMapsStyle } from './imageryProvider/google/GoogleMapsStyle';
 import { GoogleMapsImageryProvider } from './imageryProvider/google/GoogleMapsImageryProvider';
 import GeocoderService = Cesium.GeocoderService;
 import GeocoderResult = Cesium.GeocoderResult;
+import createWorldTerrain = Cesium.createWorldTerrain;
+import Ion = Cesium.Ion;
 
 export interface CurrentPosition {
 	long: number; // 经度
@@ -85,6 +86,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	@Input()
 	viewerOptions: ViewerOptions = {}; // 创建Cesium.Viewer的属性配置
 	@Input()
+	accessToken: string; // cesium ion令牌
+	@Input()
 	proxy: string; // 代理路径
 	@Input()
 	rectangle: Rectangle; // 初始范围
@@ -117,8 +120,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	private defaultViewerOptions: ViewerOptions = {
 		imageryProvider: new GoogleMapsImageryProvider(GoogleMapsStyle.Y),
 		terrainProvider: createWorldTerrain({
-			requestWaterMask : true,
-			requestVertexNormals : true
+			requestVertexNormals: false,
+			requestWaterMask: false
 		}),
 		timeline: false,
 		animation: false,
@@ -184,6 +187,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	 * 组件初始化
 	 */
 	init() {
+		Ion.defaultAccessToken = this.accessToken;
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;

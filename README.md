@@ -103,6 +103,8 @@
 	};
 	```
 
+- `accessToken`（`string`） - cesium ion 令牌。要访问 cesium 提供的影像或地形服务，需要去 [cesium ion](https://cesium.com/ion) 注册申请
+
 - `proxy`（`string`） - 设置代理路径，可使用esri提供的[几个平台的代理文件](https://github.com/Esri/resource-proxy)
 
 - `rectangle`（`Rectangle`） - 初始范围，默认中国
@@ -139,7 +141,7 @@
 
 	```shell
 	npm install // 安装依赖包
-	
+
 	npm start // 启动项目
 	```
 
