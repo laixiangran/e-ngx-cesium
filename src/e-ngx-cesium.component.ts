@@ -187,7 +187,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	 * 组件初始化
 	 */
 	init() {
-		Ion.defaultAccessToken = this.accessToken;
+		Ion.defaultAccessToken = this.accessToken || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI0NjcyZDliZC0wOGIzLTRkYTgtODMzZC02ZDgxN2JlOTFlYWMiLCJpZCI6MjU5LCJzY29wZXMiOlsiYXNyIiwiZ2MiXSwiaWF0IjoxNTM4MzI5MzgyfQ.fHaE6XzGnZtUEtSJjF_0X0HkLQyU59bGDD4-9IEePkc';
 		this.defaultProxy = this.proxy && new DefaultProxy(this.proxy);
 		Camera.DEFAULT_VIEW_RECTANGLE = this.rectangle || this.defaultRectangle;
 		const viewerOptions: ViewerOptions = this.viewerOptions ? _.merge({}, this.defaultViewerOptions, this.viewerOptions) : this.defaultViewerOptions;
