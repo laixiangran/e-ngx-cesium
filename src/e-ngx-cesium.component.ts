@@ -128,6 +128,8 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		baseLayerPicker: false,
 		geocoder: false,
 		homeButton: false,
+		infoBox: false,
+		selectionIndicator: false,
 		navigationHelpButton: false,
 		sceneModePicker: false,
 		fullscreenButton: false,
@@ -152,7 +154,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	constructor(private renderer: Renderer2) {
 		this.sliderMove = (e: MouseEvent) => {
 			const splitPosition: number = (e.clientX - this.dragStartX) / this.slider.parentElement.offsetWidth;
-			this.renderer.setStyle(this.slider, 'left', 100.0 * splitPosition + '%')
+			this.renderer.setStyle(this.slider, 'left', 100.0 * splitPosition + '%');
 			this.viewer.scene.imagerySplitPosition = splitPosition;
 			this.sliderChange.emit(splitPosition);
 		};
@@ -222,18 +224,15 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				enableCompassOuterRing: this.enableCompass
 			});
 		}
-
 		if (this.enablePosition) {
 			this.setGetPositionAction();
 		}
-
 		if (this.enableRollerShutters) {
 			const id: number = setTimeout(() => {
 				clearTimeout(id);
 				this.initContrastImageryLayers();
 			});
 		}
-
 		this.setChangeCurAction();
 
 		// 分发初始化完成事件
@@ -507,5 +506,20 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 				ymax: point1.latitude
 			};
 		}
+	}
+
+	NoAccessUnderground() {
+		let mousePosition, startMousePosition;
+		const handler = new Cesium.ScreenSpaceEventHandler(this.viewer.canvas);
+		handler.setInputAction((evt) => {
+			mousePosition = startMousePosition = Cesium.Cartesian3.clone(evt['position']);
+			handler.setInputAction((moveEvent: MoveEvent) => {
+				mousePosition = moveEvent.endPosition;
+				const y = mousePosition.y - startMousePosition.y;
+				if (y > 0) {
+					this.viewer.scene.screenSpaceCameraController.enableTilt = true;
+				}
+			}, Cesium.ScreenSpaceEventType.MOUSE_MOVE);
+		}, Cesium.ScreenSpaceEventType.MIDDLE_DOWN);
 	}
 }

@@ -37,6 +37,7 @@ export class DynamicWaterComponent implements OnInit {
 		this.modes = [
 			{ label: '--选择加载方式--', value: null },
 			{ label: '全球加载', value: 'globe' },
+			{ label: '区域加载', value: 'area' },
 			{ label: '区域加载', value: 'area' }
 		];
 		this.viewerOptions = {
@@ -53,6 +54,7 @@ export class DynamicWaterComponent implements OnInit {
 		this.viewer = evt.viewer;
 		this.scene = evt.scene;
 		this.globe = evt.globe;
+		this.eNgxCesium.doDepthTestAgainstTerrain();
 	}
 
 	modeChange($event) {
@@ -139,8 +141,8 @@ export class DynamicWaterComponent implements OnInit {
 						uniforms: {
 							normalMap: './assets/images/waterNormals.jpg',
 							frequency: 10000.0,
-							animationSpeed: 0.01,
-							amplitude: 5
+							animationSpeed: 0.02,
+							amplitude: 8
 						}
 					}
 				})

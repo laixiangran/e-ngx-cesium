@@ -84,7 +84,7 @@ export class FrameComponent {
 					{
 						url: '/frame/scene/czml',
 						icon: 'fa fa-map',
-						label: '叠加CZML'
+						label: '地质三维'
 					}
 				]
 			},
