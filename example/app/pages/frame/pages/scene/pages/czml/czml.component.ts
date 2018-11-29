@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit } from '@angular/core';
 import ViewerOptions = Cesium.ViewerOptions;
 import Viewer = Cesium.Viewer;
 import Scene = Cesium.Scene;
@@ -8,7 +8,8 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
 	templateUrl: './czml.component.html',
-	styleUrls: ['./czml.component.scss']
+	styleUrls: ['./czml.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CZMLComponent implements OnInit, OnDestroy {
 	viewerOptions: ViewerOptions;
@@ -62,6 +63,24 @@ export class CZMLComponent implements OnInit, OnDestroy {
 			datas.forEach((data) => {
 				this.coords.unshift(data[0]); // 点高度都为正
 				this.coords2.push(data[1]); // 点高度大部分为负（有一小部分为正，忽略这一点偏差）
+			});
+
+			// TODO 测试
+			const allPromise1 = [];
+			this.coords.forEach((coord, index) => {
+				if (index < 3) {
+					allPromise1.push(this.addCZML(coord, index, 1));
+				}
+			});
+			this.coords2.forEach((coord, index) => {
+				if (index < 3) {
+					allPromise1.push(this.addCZML(coord, index, 2));
+				}
+			});
+			const startTime = Date.now();
+			Promise.all(allPromise1).then(() => {
+				const endTime = Date.now();
+				console.log(`加载完成，共耗时 ${endTime - startTime} ms`);
 			});
 		});
 	}
@@ -188,5 +207,9 @@ export class CZMLComponent implements OnInit, OnDestroy {
 				resolve();
 			}
 		});
+	}
+
+	showAll() {
+		console.log(this.viewer.dataSources);
 	}
 }

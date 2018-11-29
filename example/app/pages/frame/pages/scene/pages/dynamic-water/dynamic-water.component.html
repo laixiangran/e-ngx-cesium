@@ -1,15 +1,17 @@
 <div class="globe-container">
-	<e-ngx-cesium #eNgxCesium
-				  [viewerOptions]="viewerOptions"
-				  (viewerReady)="onViewerReady($event)">
-	</e-ngx-cesium>
-	<div class="server-select">
-		<p-dropdown [options]="modes" [(ngModel)]="selectedMode" (onChange)="modeChange($event)"></p-dropdown>
-	</div>
+	<!--<e-ngx-cesium #eNgxCesium-->
+				  <!--[viewerOptions]="viewerOptions"-->
+				  <!--(viewerReady)="onViewerReady($event)">-->
+	<!--</e-ngx-cesium>-->
+	<!--<div class="server-select">-->
+		<!--<p-dropdown [options]="modes" [(ngModel)]="selectedMode" (onChange)="modeChange($event)"></p-dropdown>-->
+	<!--</div>-->
+	<iframe src="http://cesium.marsgis.cn/cesium-example/editor.html#22_waterMaterial" frameborder="0" width="100%" height="100%"></iframe>
 </div>
-<div class="readme-container">
-	<h3>描述</h3>
-	<p>
-		点击下拉框可切换全球动态水加载和指定区域动态水加载！
-	</p>
-</div>
+<div class="mask"></div>
+<!--<div class="readme-container">-->
+	<!--<h3>描述</h3>-->
+	<!--<p>-->
+		<!--点击下拉框可切换全球动态水加载和指定区域动态水加载！-->
+	<!--</p>-->
+<!--</div>-->
