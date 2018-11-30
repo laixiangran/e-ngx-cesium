@@ -344,50 +344,50 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	/**
 	 * 大气渲染效果切换
 	 */
-	doShowSkyAtmosphere() {
+	doShowSkyAtmosphere(showSkyAtmosphere?: boolean) {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.scene.skyAtmosphere.show = this.showSkyAtmosphere;
+			this.scene.skyAtmosphere.show = defined(showSkyAtmosphere) ? showSkyAtmosphere : this.showSkyAtmosphere;
 		});
 	}
 
 	/**
 	 * 光照渲染效果切换
 	 */
-	doEnableLighting() {
+	doEnableLighting(enableLighting?: boolean) {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.globe.enableLighting = this.enableLighting;
+			this.globe.enableLighting = defined(enableLighting) ? enableLighting : this.enableLighting;
 		});
 	}
 
 	/**
 	 * 雾化效果切换
 	 */
-	doEnableFog() {
+	doEnableFog(enableFog?: boolean) {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.scene.fog.enabled = this.enableFog;
+			this.scene.fog.enabled = defined(enableFog) ? enableFog : this.enableFog;
 		});
 	}
 
 	/**
 	 * 波浪效果切换
 	 */
-	doShowWaterEffect() {
+	doShowWaterEffect(showWaterEffect?: boolean) {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.globe.showWaterEffect = this.showWaterEffect;
+			this.globe.showWaterEffect = defined(showWaterEffect) ? showWaterEffect : this.showWaterEffect;
 		});
 	}
 
 	/**
 	 * 深度监测切换
 	 */
-	doDepthTestAgainstTerrain() {
+	doDepthTestAgainstTerrain(depthTestAgainstTerrain?: boolean) {
 		const id: number = setTimeout(() => {
 			clearTimeout(id);
-			this.globe.depthTestAgainstTerrain = this.depthTestAgainstTerrain;
+			this.globe.depthTestAgainstTerrain = defined(depthTestAgainstTerrain) ? depthTestAgainstTerrain : this.depthTestAgainstTerrain;
 		});
 	}
 
@@ -411,18 +411,18 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * 屏幕坐标转世界坐标（单位：米）
+	 * 屏幕坐标转笛卡尔坐标
 	 * @param {Cesium.Cartesian2} windowPosition
 	 * @param {Cesium.Viewer} viewer
 	 * @returns {Cesium.Cartesian3}
 	 */
 	window2cartesian(windowPosition: Cartesian2, viewer: Viewer): Cartesian3 {
-		// return viewer.scene.globe.pick(viewer.camera.getPickRay(screenPoint), viewer.scene); // 只适用于3D模式
+		// return viewer.scene.globe.pick(viewer.camera.getPickRay(windowPosition), viewer.scene); // 只适用于3D模式
 		return viewer.camera.pickEllipsoid(windowPosition, viewer.scene.globe.ellipsoid);
 	}
 
 	/**
-	 * 世界坐标转地理坐标（单位：弧度）
+	 * 笛卡尔坐标转地理坐标（单位：弧度）
 	 * @param {Cesium.Cartesian3} cartesian
 	 * @returns {Cesium.Cartographic}
 	 */
@@ -432,7 +432,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * 世界坐标转屏幕坐标（单位：像素）
+	 * 笛卡尔坐标转屏幕坐标（单位：像素）
 	 * @param {Cesium.Cartesian3} cartesian
 	 * @param {Cesium.Scene} scene
 	 * @returns {Cesium.Cartesian2}
@@ -450,12 +450,12 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 		return {
 			longitude: Cesium.Math.toDegrees(cartographic.longitude),
 			latitude: Cesium.Math.toDegrees(cartographic.latitude),
-			height: Cesium.Math.toDegrees(cartographic.height)
+			height: cartographic.height
 		}
 	}
 
 	/**
-	 * 地理坐标（弧度）转世界坐标（单位：米）
+	 * 地理坐标（弧度）转笛卡尔坐标
 	 * @param {Cesium.Cartographic} cartographic
 	 * @param {Cesium.Ellipsoid} ellipsoid
 	 * @returns {Cesium.Cartesian3}
@@ -474,7 +474,7 @@ export class ENgxCesiumComponent implements OnInit, OnDestroy {
 	}
 
 	/**
-	 * 经纬度坐标转世界坐标（单位：米）
+	 * 经纬度坐标转笛卡尔坐标
 	 * @param {Longlat} longlat
 	 * @param {Cesium.Ellipsoid} ellipsoid
 	 * @returns {Cesium.Cartesian3}
